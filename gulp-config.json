@@ -1,0 +1,41 @@
+{
+    "vhost": "js13k2017.local",
+    "sourceRoot": "./sources/",
+    "destinationRoot": "./www/",
+    "tasks": {
+        "sass": {
+            "source": ["sass/**/*.scss"],
+            "destination": "css/",
+            "browsers": ["last 2 versions"],
+            "config": {
+                "includePaths": []
+            }
+        },
+        "sasslint": {
+            "source": ["sass/**/*.scss"],
+            "ignore": []
+        },
+        "scripts": {
+            "source": ["scripts/game.js"],
+            "destination": "scripts",
+            "destinationFile": "game.js",
+            "babelPresets": "es2015"
+        },
+        "eslint": {
+            "source": ["scripts/**/*.js"],
+            "config": {
+                "globals": []
+            }
+        },
+        "views": {
+            "source": ["views/**/*.html"],
+            "destination": "",
+            "minifyHTML": true
+        },
+        "images": {
+            "source": ["images/**/*"],
+            "destination": "images",
+            "minify": true
+        }
+    }
+}

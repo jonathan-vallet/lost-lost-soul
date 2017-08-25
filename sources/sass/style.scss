@@ -1,0 +1,23 @@
+* {
+    margin: 0;
+    padding: 0;
+    &, 
+    &::before,
+    &::after {
+        box-sizing: border-box;
+    }
+}
+
+body {
+    background: #333;
+}
+
+#canvas {
+    position: absolute;
+    top: 25%;
+    left: 25%;
+    width: 50%;
+    height: 50%;
+    background: #eee;
+    border: 1px solid black;
+}

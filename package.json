@@ -1,0 +1,25 @@
+{
+  "name": "js13k2017",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jonathan-vallet/lost-lost-soul.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jonathan-vallet/lost-lost-soul/issues"
+  },
+  "homepage": "https://github.com/jonathan-vallet/lost-lost-soul#readme",
+  "dependencies": {
+    "adfab-gulp-boilerplate": "^1.6.4",
+    "gulp-check-filesize": "^2.0.1",
+    "gulp-inline-source": "^3.1.0",
+    "gulp-zip": "^4.0.0"
+  }
+}

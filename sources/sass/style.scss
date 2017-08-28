@@ -12,12 +12,41 @@ body {
     background: #333;
 }
 
-#canvas {
+#game {
     position: absolute;
     top: 25%;
     left: 25%;
     width: 50%;
     height: 50%;
-    background: #eee;
+    background: #356a9e;
     border: 1px solid black;
+}
+
+#canvas,
+#bg1,
+#bg2 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+#bg1 {
+animation: bg1 20s linear infinite;
+}
+
+@keyframes bg1 {
+    from {background-position: 0 0;}
+    to {background-position: -1360px 0;}
+}
+
+
+#bg2 {
+animation: bg2 15s linear infinite;
+}
+
+@keyframes bg2 {
+    from {background-position: 0 0;}
+    to {background-position: -1500px 0;}
 }

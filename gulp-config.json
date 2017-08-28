@@ -36,6 +36,12 @@
             "source": ["images/**/*"],
             "destination": "images",
             "minify": true
+        },
+        "inlinesource": {
+            "source": ["*.html"],
+            "destination": "./dist",
+            "filename": "game.zip",
+            "build": false
         }
     }
 }

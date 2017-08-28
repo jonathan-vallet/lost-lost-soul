@@ -7,12 +7,12 @@ var middleground =  document.getElementById('bg2');
 
 var backgroundSpeed = 20;
 var middlegroundSpeed = 15;
-
+var time = new Date();
 
 function init() {
     // Generates background 1
-    generateBackground(background, 300, 0.2, 20, 4, '#1e3d5a');
-    generateBackground(middleground, 400, 0.3, 50, 3, '#101f32');
+    generateBackground(background, 300, 0.2, 20, 4, '#1e3d5a', false);
+    generateBackground(middleground, 400, 0.3, 50, 3, '#101f32', true);
     
     generatePlatform(30, 30, 100, 30);
     generatePlatform(200, 45, 400, 30);
@@ -24,10 +24,15 @@ function init() {
 
     initPlayer();
     initReaper();
+    //loop();
 }
 
 function loop() {
-    
+    var now = new Date();
+    var gameDuration = now - time;
+    background.style['animation-duration'] = Math.floor((backgroundSpeed - (gameDuration / 10000)) * 1000) / 1000 + 's';
+    middleground.style['animation-duration'] = Math.floor((middlegroundSpeed - (gameDuration / 10000)) * 1000) / 1000 + 's';
+    requestAnimationFrame(loop);
 }
 
 function initPlayer() {
@@ -46,7 +51,7 @@ function initReaper() {
     });
 }
 
-function generateBackground(background, width, heightPercent, offset, loop, color) {
+function generateBackground(background, width, heightPercent, offset, loop, color, withStalactite) {
     background.width = (width + offset * 2) * loop;
     var canvas = document.createElement('canvas');
     canvas.width = background.width;
@@ -57,69 +62,66 @@ function generateBackground(background, width, heightPercent, offset, loop, colo
     context.fillRect(0, 0, canvas.width, canvas.height);
 
     for(var index = 0; index < loop; ++index) {
-        drawBackground(context, offset + index * (width + offset * 2), canvas.height / 2, width, canvas.height * heightPercent);
+        drawBackground(context, offset + index * (width + offset * 2), canvas.height / 2, width, canvas.height * heightPercent, withStalactite);
     }
     background.style.backgroundImage = 'url(' + canvas.toDataURL() + ')';
 }
 
-function drawBackground(ctx, x, y, width, height) {
+function drawBackground(ctx, x, y, width, height, withStalactic) {
     ctx.globalCompositeOperation = 'destination-out';
     ctx.beginPath();
-    var currentX = x;
+    var startX = x;
+    var currentX = 0;
     var currentY = y;
-    var splitNumber = width / 20;
+    var splitNumber = withStalactic ? 40 : 25;
     var centerOffset = (gaussianRandom() + 1) * 0.2 * height - 0.1 * height;
 
-    var currentX = x;
-    var currentY = y;
-    var step = 1;
-    ctx.moveTo(x, y + centerOffset);
-    while(currentX < x + width - splitNumber) {
-        currentX = currentX + (gaussianRandom() + 1) * splitNumber;
-        if(currentX >= x + width) {
-            break;
-        }
-        if(step === 1 && currentY < y + height) {
-            currentY += height / (0.5 + (gaussianRandom() + 1) * 1.5);
-            if(currentY >= y + height) {
-                currentY = y + height;
-                step = 2;
+    for(var index = -1; index <= 1; index += 2) {
+        var iteration = 0;
+        currentX = 0;
+        currentY = y;
+        var step = 1;
+        ctx.moveTo(startX, y + centerOffset);
+        while(currentX < width - width / splitNumber) {
+            currentX = currentX + (gaussianRandom() + 1) * width / splitNumber;
+            if(currentX >= width) {
+                break;
             }
-        } else {
-            currentY = y + (gaussianRandom() + 1) * height * 0.25 + 0.75 * height;
-        }
-        ctx.lineTo(currentX, currentY);
-    }
-    ctx.lineTo(x + width, y + centerOffset);
-    ctx.lineTo(x, y + centerOffset);
-    ctx.fillStyle = 'white';
-    ctx.fill();
 
-    // Draws top part of background
-    var currentX = x;
-    var currentY = y;
-    var step = 1;
-    ctx.moveTo(x, y + centerOffset);
-    while(currentX < x + width - splitNumber) {
-        currentX = currentX + (gaussianRandom() + 1) * splitNumber;
-        if(currentX >= x + width) {
-            break;
-        }
-        if(step === 1 && currentY > y - height) {
-            currentY -= height / (0.5 + (gaussianRandom() + 1) * 2);
-            if(currentY <= y - height) {
-                currentY = y - height;
-                step = 2;
+            var pointX = currentX;
+            if(!withStalactic) {
+                var spikeHeightCoef = 0.25;
+            } else {
+                var spikeHeightCoef = 0.15;
+                var progress = iteration/splitNumber;
+                if(progress < 0.33) {
+                    pointX = 0.8 * currentX + 0.05 * width;
+                    spikeHeightCoef = 0.7;
+                } else if (progress > 0.67) {
+                    pointX = 0.8 * currentX + 0.2 * width;
+                    spikeHeightCoef = 0.7;
+                } else {
+                    pointX = currentX;
+                }
             }
-        } else {
-            currentY = y - (gaussianRandom() + 1) * height * 0.25 - 0.75 * height;
+            
+            if(step === 1 && currentY < y + height) {
+                currentY += height / (0.5 + (gaussianRandom() + 1) * 1.5) * index;
+                if(currentY >= y + height * index) {
+                    currentY = y + height * index;
+                    step = 2;
+                }
+            } else {
+                currentY = y + (gaussianRandom() + 1) * height * spikeHeightCoef * index + (1 - spikeHeightCoef) * height * index;
+            }
+            ctx.lineTo(Math.floor(startX + pointX), Math.floor(currentY));
+            ++iteration;
         }
-        ctx.lineTo(currentX, currentY);
+        ctx.lineTo(startX + width, y + centerOffset);
+        ctx.lineTo(startX, y + centerOffset);
+        ctx.fillStyle = 'white';
+        ctx.fill();
     }
-    ctx.lineTo(x + width, y + centerOffset);
-    ctx.lineTo(x, y + centerOffset);
-    ctx.fillStyle = 'white';
-    ctx.fill();
 }
 
 function generatePlatform(x, y, width, height) {

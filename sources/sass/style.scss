@@ -13,11 +13,12 @@ body {
 }
 
 #game {
+
     position: absolute;
-    top: 25%;
-    left: 25%;
-    width: 50%;
-    height: 50%;
+    top: calc(50% - 200px);
+    left: calc(50% - 450px);
+    width: 900px;
+    height: 400px;
     background: #356a9e;
     border: 1px solid black;
 }

@@ -15,14 +15,14 @@
             "source": ["sass/**/*.scss"],
             "ignore": []
         },
-        "scripts": {
-            "source": ["scripts/game.js"],
-            "destination": "scripts",
-            "destinationFile": "game.js",
-            "babelPresets": "es2015"
+        "concat": {
+            "source": ["scripts/closure-start.js", "scripts/utils.js", "scripts/background.js", "scripts/light.js", "scripts/platforms.js", "scripts/player.js", "scripts/keyboard.js", "scripts/game.js", "scripts/closure-end.js"],
+            "watch": ["scripts/**/*.js"],
+            "filename": "game.js",
+            "destination": "scripts"
         },
         "eslint": {
-            "source": ["scripts/**/*.js"],
+            "source": ["../www/scripts/game.js"],
             "config": {
                 "globals": []
             }
@@ -37,7 +37,7 @@
             "destination": "images",
             "minify": true
         },
-        "inlinesource": {
+        "zip": {
             "source": ["*.html"],
             "destination": "./dist",
             "filename": "game.zip",

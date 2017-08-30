@@ -1,5 +1,3 @@
-var { gaussianRandom } = require('./utils.js');
-
 /**
  * Generates a background image
  * @method generateBackground
@@ -15,16 +13,16 @@ var { gaussianRandom } = require('./utils.js');
 function generateBackground(background, width, height, heightPercent, offset, loop, color, withStalactite) {
     // Sets background image finale size
     background.width = (width + offset * 2) * loop;
-    var canvas = document.createElement('canvas');
+    let canvas = document.createElement('canvas');
     canvas.width = background.width;
     canvas.height = height;
 
-    var context = canvas.getContext('2d');
+    let context = canvas.getContext('2d');
     context.fillStyle = color;
     context.fillRect(0, 0, canvas.width, canvas.height);
 
     // Generates every background cave
-    for(var index = 0; index < loop; ++index) {
+    for(let index = 0; index < loop; ++index) {
         drawBackgroundItem(context, offset + index * (width + offset * 2), canvas.height / 2, width, canvas.height * heightPercent, withStalactite);
     }
     background.style.backgroundImage = 'url(' + canvas.toDataURL() + ')';
@@ -42,17 +40,18 @@ function generateBackground(background, width, height, heightPercent, offset, lo
 function drawBackgroundItem(ctx, x, y, width, height, withStalactic) {
     ctx.globalCompositeOperation = 'destination-out';
     ctx.beginPath();
-    var startX = x;
-    var currentX = 0;
-    var currentY = y;
-    var splitNumber = withStalactic ? 40 : 25;
-    var centerOffset = (gaussianRandom() + 1) * 0.2 * height - 0.1 * height;
+    let startX = x;
+    let currentX = 0;
+    let currentY = y;
+    let splitNumber = withStalactic ? 40 : 25;
+    let centerOffset = (gaussianRandom() + 1) * 0.2 * height - 0.1 * height;
+    let spikeHeightCoef = 0.25;
 
-    for(var index = -1; index <= 1; index += 2) {
-        var iteration = 0;
+    for(let index = -1; index <= 1; index += 2) {
+        let iteration = 0;
         currentX = 0;
         currentY = y;
-        var step = 1;
+        let step = 1;
         ctx.moveTo(startX, y + centerOffset);
         while(currentX < width - width / splitNumber) {
             currentX = currentX + (gaussianRandom() + 1) * width / splitNumber;
@@ -60,12 +59,10 @@ function drawBackgroundItem(ctx, x, y, width, height, withStalactic) {
                 break;
             }
 
-            var pointX = currentX;
-            if(!withStalactic) {
-                var spikeHeightCoef = 0.25;
-            } else {
-                var spikeHeightCoef = 0.15;
-                var progress = iteration/splitNumber;
+            let pointX = currentX;
+            if(withStalactic) {
+                spikeHeightCoef = 0.15;
+                let progress = iteration/splitNumber;
                 if(progress < 0.33) {
                     pointX = 0.8 * currentX + 0.05 * width;
                     spikeHeightCoef = 0.7;
@@ -76,7 +73,7 @@ function drawBackgroundItem(ctx, x, y, width, height, withStalactic) {
                     pointX = currentX;
                 }
             }
-            
+
             if(step === 1 && currentY < y + height) {
                 currentY += height / (0.5 + (gaussianRandom() + 1) * 1.5) * index;
                 if(currentY >= y + height * index) {
@@ -105,8 +102,3 @@ function updateBackgroundSpeed(gameDuration) {
     background.style['animation-duration'] = Math.floor((backgroundSpeed - (gameDuration / 10000)) * 1000) / 1000 + 's';
     middleground.style['animation-duration'] = Math.floor((middlegroundSpeed - (gameDuration / 10000)) * 1000) / 1000 + 's';
 }
-
-module.exports = {
-    generateBackground,
-    updateBackgroundSpeed,
-};

@@ -5,7 +5,3 @@
 function gaussianRandom() {
     return ((Math.random() + Math.random() + Math.random() + Math.random() + Math.random() + Math.random()) - 3) / 3;
 }
-
-module.exports = {
-    gaussianRandom,
-};

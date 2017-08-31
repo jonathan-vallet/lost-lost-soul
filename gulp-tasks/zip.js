@@ -7,10 +7,12 @@ module.exports = function() {
 
     const config = util.env.boilerplate.config;
     const zipConfig = config.tasks.zip;
-    
+
     gulp.task('zip', function () {
         return gulp.src(config.destinationRoot + zipConfig.source)
-            .pipe(inlinesource())
+            .pipe(inlinesource({
+                compress: false
+            }))
             .pipe(zip(zipConfig.filename))
             .pipe(gulp.dest(zipConfig.destination))
             .pipe(checkFileSize({

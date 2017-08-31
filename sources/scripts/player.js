@@ -1,4 +1,4 @@
-var player = {}
+var player = {};
 const GRAVITY = 0.5; // Gravity, to make jump go back to the ground
 const JUMP_IMPULSE = 12; // Jump impulsion when starting to jump. Decreases over tim due to GRAVITY
 
@@ -8,16 +8,16 @@ const JUMP_IMPULSE = 12; // Jump impulsion when starting to jump. Decreases over
 function initPlayer() {
     player = {
         x: 350,
-        y: (gameCanvas.height - 36) / 2,
+        y: 182,
         width: 42,
         height: 36,
         isJumping: false,
         isOnGround: true,
         currentVelocityY: 0
-    }
-    
-    let playerImage = new Image();
-    playerImage.src = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACoAAAAkAgMAAACCp0C4AAAADFBMVEUAAAD///////8AAAA4fh26AAAAAnRSTlMA32D/An0AAACCSURBVBjTndCxDYMwEIXhk0smidjHKVKljDKFl4iEUrkJCo+CEdiHEagwfujOCCr+6pN915ysAQjCXPJrc5X83oxUF82gXfY/u85ugxkHg0Wu9jOGqblkph7PzL7BjOfelflWGHVhLap/QdStnLspHGm9oXvoOD/shGb38d7fhdbnBddVtJA2inbyAAAAAElFTkSuQmCC';
+    };
+
+    var playerImage = new Image();
+    playerImage.src = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACoAAAAkAgMAAACCp0C4AAAADFBMVEUAAAD///////8AAAA4fh26AAAAAnRSTlMA32D/An0AAACJSURBVBjTrdC9DYQwDIbhyHRMckp1y+SKq648MUWWQELQICH+vASMxAYQ7BAHQclbPZL1NVZ7iGgVB85/79Q580bXWIuRDeSBrMmdFePFJB6Dd/GEpztzpRXj7+xU/IqMOvLRVAe38xzcRe7XJbhS7+BGPO6GL08TZ38YyDoy5MaYj2Lzl5N12QDN7Ll+6NbFBQAAAABJRU5ErkJggg==';
     player.image = playerImage;
 }
 
@@ -26,6 +26,25 @@ function initPlayer() {
  */
 function drawPlayer() {
     gameContext.drawImage(player.image, player.x - player.width / 2, player.y - player.height / 2);
+
+    // Adds eyes blinking
+    var eyeHeight = Math.floor(gameDuration / 100) % 50 !== 4 ? 5 : 1;
+    gameContext.fillStyle= '#000';
+    gameContext.fillRect(player.x - 2, player.y - 3, 3, - eyeHeight);
+    gameContext.fillRect(player.x + 9, player.y - 3, 3, - eyeHeight);
+
+    var ligthBritghness = Math.max(5, 100 - (gameDuration / 1000 * (lightRadiusDecreaseSpeed * 100 / INITIAL_LIGHT_RADIUS)));
+
+    gameContext.fillStyle= 'rgba(255, 255, 168, ' + (ligthBritghness / 100) + ')';
+    gameContext.fillRect(player.x + 15, player.y +10, 5, 7);
+    // Adds fire on lantern
+    /*var colorList = ['fff', 'fff', 'fff', 'f9ff88', 'f9ff88', 'ffa86e', 'c55b38', 'ca2424'];
+    for(var point = 0; point < 35; ++point) {
+        gameContext.fillStyle = '#' + colorList[(Math.floor(gameDuration / 100) % 50 + point) % colorList.length];
+        var left = player.x + 15 + (point % 5);
+        var top = player.y + 10 + (point % 7);
+        gameContext.fillRect(left, top, 1, 1);
+    }*/
 }
 
 /**
@@ -46,7 +65,7 @@ function stopJump() {
     if(player.currentVelocityY < -4) {
         player.currentVelocityY = -4;
     }
-};
+}
 
 /**
  * Players starts falling when on empty space after a platform, or hitting top of platform
@@ -56,7 +75,7 @@ function startFall() {
         player.currentVelocityY = .5;
         player.isOnGround = false;
     }
-};
+}
 
 /**
  * Players stop falling when he hits a platform while going down
@@ -66,7 +85,7 @@ function stopFall() {
     player.isOnGround = true;
     // Round to be on an exact platform
     //this.y = Math.floor(this.y / CELL_SIZE) * CELL_SIZE;
-};
+}
 
 /**
  * Updates player position on screen at every frame
@@ -77,7 +96,8 @@ function updatePlayerPosition() {
         player.y += player.currentVelocityY;
     }
     
-    if(player.y > 200) {
+    if(player.y > 182) {
+        player.y = 182;
         stopFall();
     }
 }

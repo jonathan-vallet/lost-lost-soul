@@ -7,8 +7,9 @@ var middleground =  document.getElementById('bg2');
 
 var backgroundSpeed = 20;
 var middlegroundSpeed = 15;
-var time = new Date();
-
+var gameDuration = 0;
+var startTime = new Date();
+var lastTime = startTime;
 // Just to try light update real time, while platform moving is not done yet
 var test = document.createElement('canvas');
 test.width = gameCanvas.width;
@@ -40,14 +41,14 @@ function init() {
 
 function loop() {
     let now = new Date();
-    let gameDuration = now - time;
+    gameDuration = now - startTime;
     
-    //updateBackgroundSpeed(gameDuration);
+    //updateBackgroundSpeed();
     gameContext.clearRect(0, 0, gameCanvas.width, gameCanvas.height);
     gameContext.drawImage(test, 0, 0);
     updatePlayerPosition();
     drawPlayer();
-    generateLightFilter(gameDuration);
+    generateLightFilter();
     requestAnimationFrame(loop);
 }
 
@@ -57,58 +58,6 @@ function initReaper() {
     reaperImage.addEventListener('load', function() {
         gameContext.drawImage(reaperImage, 50, (gameCanvas.height - reaperImage.height) / 2);
     });
-}
-
-function generatePlatform(x, y, width, height) {
-    // Number of spikes on platform
-    let splitNumber = Math.min(width / 10, 25 + 5 * gaussianRandom());
-
-    // Sets the dot list under the platform
-    let dotList = [];
-    let i = x;
-    while(i < x + width - splitNumber) {
-        i = i + (gaussianRandom() + 1) * splitNumber;
-        if(i >= x + width) {
-            break;
-        }
-        dotList.push([i, y + height / 3 + (gaussianRandom() + 1) * height * 2 / 3]);
-    }
-    
-    // Draws platform line 2px under under (decoration)
-    gameContext.beginPath();
-    gameContext.moveTo(x, y + 2);
-    for(let dot in dotList) {
-        gameContext.lineTo(dotList[dot][0], dotList[dot][1] + 2);
-    }
-    gameContext.lineTo(x + width, y + 2);
-    gameContext.fillStyle = '#bfa16d';
-    gameContext.fill();
- 
-    //Draws platform
-    gameContext.beginPath();
-    gameContext.moveTo(x, y);
-    for(let dot in dotList) {
-        gameContext.lineTo(dotList[dot][0], dotList[dot][1]);
-    }
-    gameContext.lineTo(x + width, y);
-    gameContext.fillStyle = '#122937';
-    gameContext.fill();
-
-    // Draws grass on platform
-    gameContext.beginPath();
-    gameContext.moveTo(x, y);
-    splitNumber = Math.min(width / 50, 5 + 5 * gaussianRandom());
-    i = x;
-    while(i < x + width - splitNumber) {
-        i = i + (gaussianRandom() + 1) * splitNumber;
-        if(i >= x + width) {
-            break;
-        }
-        gameContext.lineTo(i, y + 2 + (gaussianRandom() + 1) * 3);
-    }
-    gameContext.lineTo(x + width, y);
-    gameContext.fillStyle = '#376d91';
-    gameContext.fill();
 }
 
 init();

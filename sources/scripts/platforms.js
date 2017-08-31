@@ -7,11 +7,11 @@
  */
 function generatePlatform(x, y, width, height) {
     // Number of spikes on platform
-    let splitNumber = Math.min(width / 10, 25 + 5 * gaussianRandom());
+    var splitNumber = Math.min(width / 10, 25 + 5 * gaussianRandom());
 
     // Sets the dot list under the platform
-    let dotList = [];
-    let i = x;
+    var dotList = [];
+    var i = x;
     while(i < x + width - splitNumber) {
         i = i + (gaussianRandom() + 1) * splitNumber;
         if(i >= x + width) {
@@ -23,7 +23,7 @@ function generatePlatform(x, y, width, height) {
     // Draws platform line 2px under under (decoration)
     gameContext.beginPath();
     gameContext.moveTo(x, y + 2);
-    for(let dot in dotList) {
+    for(var dot in dotList) {
         gameContext.lineTo(dotList[dot][0], dotList[dot][1] + 2);
     }
     gameContext.lineTo(x + width, y + 2);
@@ -33,7 +33,7 @@ function generatePlatform(x, y, width, height) {
     //Draws platform
     gameContext.beginPath();
     gameContext.moveTo(x, y);
-    for(let dot in dotList) {
+    for(var dot in dotList) {
         gameContext.lineTo(dotList[dot][0], dotList[dot][1]);
     }
     gameContext.lineTo(x + width, y);

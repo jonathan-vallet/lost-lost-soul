@@ -16,7 +16,7 @@ function initPlayer() {
         currentVelocityY: 0
     };
 
-    var playerImage = new Image();
+    let playerImage = new Image();
     playerImage.src = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACoAAAAkAgMAAACCp0C4AAAADFBMVEUAAAD///////8AAAA4fh26AAAAAnRSTlMA32D/An0AAACJSURBVBjTrdC9DYQwDIbhyHRMckp1y+SKq648MUWWQELQICH+vASMxAYQ7BAHQclbPZL1NVZ7iGgVB85/79Q580bXWIuRDeSBrMmdFePFJB6Dd/GEpztzpRXj7+xU/IqMOvLRVAe38xzcRe7XJbhS7+BGPO6GL08TZ38YyDoy5MaYj2Lzl5N12QDN7Ll+6NbFBQAAAABJRU5ErkJggg==';
     player.image = playerImage;
 }
@@ -28,23 +28,15 @@ function drawPlayer() {
     gameContext.drawImage(player.image, player.x - player.width / 2, player.y - player.height / 2);
 
     // Adds eyes blinking
-    var eyeHeight = Math.floor(gameDuration / 100) % 50 !== 4 ? 5 : 1;
+    let eyeHeight = Math.floor(gameDuration / 100) % 50 !== 4 ? 5 : 1;
     gameContext.fillStyle= '#000';
     gameContext.fillRect(player.x - 2, player.y - 3, 3, - eyeHeight);
     gameContext.fillRect(player.x + 9, player.y - 3, 3, - eyeHeight);
 
-    var ligthBritghness = Math.max(5, 100 - (gameDuration / 1000 * (lightRadiusDecreaseSpeed * 100 / INITIAL_LIGHT_RADIUS)));
-
+    // Adds lantern light
+    let ligthBritghness = Math.max(5, 100 - (gameDuration / 1000 * (lightRadiusDecreaseSpeed * 100 / INITIAL_LIGHT_RADIUS)));
     gameContext.fillStyle= 'rgba(255, 255, 168, ' + (ligthBritghness / 100) + ')';
     gameContext.fillRect(player.x + 15, player.y +10, 5, 7);
-    // Adds fire on lantern
-    /*var colorList = ['fff', 'fff', 'fff', 'f9ff88', 'f9ff88', 'ffa86e', 'c55b38', 'ca2424'];
-    for(var point = 0; point < 35; ++point) {
-        gameContext.fillStyle = '#' + colorList[(Math.floor(gameDuration / 100) % 50 + point) % colorList.length];
-        var left = player.x + 15 + (point % 5);
-        var top = player.y + 10 + (point % 7);
-        gameContext.fillRect(left, top, 1, 1);
-    }*/
 }
 
 /**

@@ -63,7 +63,7 @@ function stopJump() {
  * Players starts falling when on empty space after a platform, or hitting top of platform
  */
 function startFall() {
-    if(this.isOnGround) {
+    if(player.isOnGround) {
         player.currentVelocityY = .5;
         player.isOnGround = false;
     }
@@ -88,8 +88,7 @@ function updatePlayerPosition() {
         player.y += player.currentVelocityY;
     }
     
-    if(player.y > 182) {
-        player.y = 182;
-        stopFall();
+    if(player.y - player.height / 2 > gameCanvas.height) {
+        player.y = - player.height / 2;
     }
 }

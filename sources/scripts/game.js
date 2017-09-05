@@ -9,8 +9,8 @@ var gameSpeed = 140;
 var backgroundSpeed = 20;
 var middlegroundSpeed = 15;
 var gameDuration = 0;
-var startTime = new Date();
-var lastTime = startTime;
+var startTime = +new Date();
+
 // Just to try light update real time, while platform moving is not done yet
 var test = document.createElement('canvas');
 test.width = gameCanvas.width;
@@ -18,6 +18,8 @@ test.height = gameCanvas.height;
 var contextTest = test.getContext('2d');
 
 var drawBlockList = [];
+var isGameInPause = false;
+var pauseTime = 0;
 
 function init() {
     initPlayer();
@@ -36,19 +38,43 @@ function init() {
 }
 
 function loop() {
+    if(isGameInPause) {
+        return;
+    }
+
     let now = new Date();
     gameDuration = now - startTime;
-    
+    if(pauseTime > 0) {
+        let pauseDuration = now - pauseTime;
+        startTime += pauseDuration; // Hack: increases start time with pause time to avoid removing pausetime at every frame
+        gameDuration -= pauseDuration;
+        pauseTime = 0;
+    }
+
     //updateBackgroundSpeed();
     gameContext.clearRect(0, 0, gameCanvas.width, gameCanvas.height);
     gameContext.drawImage(test, 0, 0);
 
-    drawBlocks();
-    
     updatePlayerPosition();
+    drawBlocks();
+
     drawPlayer();
     generateLightFilter();
     requestAnimationFrame(loop);
+}
+
+function pauseGame() {
+    isGameInPause = true;
+    background.style['animation-play-state'] = 'paused';
+    middleground.style['animation-play-state'] = 'paused';
+    pauseTime = +new Date();
+}
+
+function resumeGame() {
+    isGameInPause = false;
+    background.style['animation-play-state'] = 'running';
+    middleground.style['animation-play-state'] = 'running';
+    loop();
 }
 
 /*function initReaper() {

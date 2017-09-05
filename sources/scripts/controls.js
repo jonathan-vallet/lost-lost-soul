@@ -7,6 +7,14 @@ window.addEventListener('keydown', function(k) {
                 startJump();
             }
             break;
+        case 27: // escape
+            // Pause/restore game
+            if(!isGameInPause) {
+                pauseGame();
+            } else {
+                resumeGame();
+            }
+            break;
     }
 });
 

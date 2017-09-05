@@ -13,7 +13,6 @@ body {
 }
 
 #game {
-
     position: absolute;
     top: calc(50% - 200px);
     left: calc(50% - 450px);
@@ -34,7 +33,8 @@ body {
 }
 
 #bg1 {
-animation: bg1 20s linear infinite;
+    animation: bg1 20s linear infinite;
+    transform: translateZ(0);
 }
 
 @keyframes bg1 {
@@ -44,7 +44,8 @@ animation: bg1 20s linear infinite;
 
 
 #bg2 {
-animation: bg2 15s linear infinite;
+    animation: bg2 15s linear infinite;
+    transform: translateZ(0);
 }
 
 @keyframes bg2 {

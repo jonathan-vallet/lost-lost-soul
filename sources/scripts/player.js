@@ -34,7 +34,7 @@ function drawPlayer() {
     gameContext.fillRect(player.x + 9, player.y - 3, 3, - eyeHeight);
 
     // Adds lantern light
-    let ligthBritghness = Math.max(5, 100 - (gameDuration / 1000 * (lightRadiusDecreaseSpeed * 100 / INITIAL_LIGHT_RADIUS)));
+    let ligthBritghness = Math.max(25, 100 - (gameDuration / 1000 * (lightRadiusDecreaseSpeed * 100 / INITIAL_LIGHT_RADIUS)));
     gameContext.fillStyle= 'rgba(255, 255, 168, ' + (ligthBritghness / 100) + ')';
     gameContext.fillRect(player.x + 15, player.y +10, 5, 7);
 }

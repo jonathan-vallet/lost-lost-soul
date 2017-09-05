@@ -1,11 +1,13 @@
 /**
  * Generates a single platform
+ * @param context ctx - the canvas context where draw the platform
  * @param x int - left position of the platform
  * @param y int - top position of the platform
  * @param width int - width of the platform
  * @param height int - height of the platform
  */
-function generatePlatform(x, y, width, height) {
+function generatePlatform(context, platform) {
+    var [x, y, width, height] = platform;
     // Number of spikes on platform
     let splitNumber = Math.min(width / 10, 25 + 5 * gaussianRandom());
 
@@ -21,28 +23,28 @@ function generatePlatform(x, y, width, height) {
     }
     
     // Draws platform line 2px under under (decoration)
-    gameContext.beginPath();
-    gameContext.moveTo(x, y + 2);
+    context.beginPath();
+    context.moveTo(x, y + 2);
     for(let dot in dotList) {
-        gameContext.lineTo(dotList[dot][0], dotList[dot][1] + 2);
+        context.lineTo(dotList[dot][0], dotList[dot][1] + 2);
     }
-    gameContext.lineTo(x + width, y + 2);
-    gameContext.fillStyle = '#376d91';
-    gameContext.fill();
+    context.lineTo(x + width, y + 2);
+    context.fillStyle = '#376d91';
+    context.fill();
 
     //Draws platform
-    gameContext.beginPath();
-    gameContext.moveTo(x, y);
+    context.beginPath();
+    context.moveTo(x, y);
     for(let dot in dotList) {
-        gameContext.lineTo(dotList[dot][0], dotList[dot][1]);
+        context.lineTo(dotList[dot][0], dotList[dot][1]);
     }
-    gameContext.lineTo(x + width, y);
-    gameContext.fillStyle = '#122937';
-    gameContext.fill();
+    context.lineTo(x + width, y);
+    context.fillStyle = '#122937';
+    context.fill();
 
     // Draws grass on platform
-    gameContext.beginPath();
-    gameContext.moveTo(x, y);
+    context.beginPath();
+    context.moveTo(x, y);
     splitNumber = Math.min(width / 50, 5 + 5 * gaussianRandom());
     i = x;
     while(i < x + width - splitNumber) {
@@ -50,9 +52,9 @@ function generatePlatform(x, y, width, height) {
         if(i >= x + width) {
             break;
         }
-        gameContext.lineTo(i, y + 2 + (gaussianRandom() + 1) * 3);
+        context.lineTo(i, y + 2 + (gaussianRandom() + 1) * 3);
     }
-    gameContext.lineTo(x + width, y);
-    gameContext.fillStyle = '#376d91';
-    gameContext.fill();
+    context.lineTo(x + width, y);
+    context.fillStyle = '#376d91';
+    context.fill();
 }

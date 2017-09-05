@@ -16,7 +16,7 @@
             "ignore": []
         },
         "concat": {
-            "source": ["scripts/closure-start.js", "scripts/utils.js", "scripts/background.js", "scripts/light.js", "scripts/platforms.js", "scripts/player.js", "scripts/controls.js", "scripts/game.js", "scripts/closure-end.js"],
+            "source": ["scripts/closure-start.js", "scripts/utils.js", "scripts/background.js", "scripts/light.js", "scripts/blocks.js", "scripts/platforms.js", "scripts/player.js", "scripts/controls.js", "scripts/game.js", "scripts/closure-end.js"],
             "watch": ["scripts/**/*.js"],
             "filename": "game.js",
             "destination": "scripts"

@@ -27,3 +27,15 @@ window.addEventListener('keyup', function(k) {
         break;
     }
 });
+
+window.addEventListener('touchstart', function(k) {
+    // TODO: If player clicks on pause button, pause game instead of jumping
+    if(!player.isJumping) {
+        startJump();
+    }
+});
+
+window.addEventListener('touchend', function(k) {
+    player.isJumping = false;
+    stopJump();
+});

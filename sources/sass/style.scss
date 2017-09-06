@@ -24,7 +24,8 @@ body {
 
 #canvas,
 #bg1,
-#bg2 {
+#bg2,
+#start {
     position: absolute;
     top: 0;
     left: 0;
@@ -51,4 +52,40 @@ body {
 @keyframes bg2 {
     from {background-position: 0 0;}
     to {background-position: -1500px 0;}
+}
+
+#start {
+    color: white;
+    font-family: sans-serif;
+    padding-left: 50%;
+    text-align: center;
+    padding-top: 40px;
+    font-size: 20px;
+    font-variant: small-caps;
+}
+
+#title {
+    margin: 0 0 40px;   
+    font-size: 40px;
+}
+
+#controls {
+    margin: 0 0 20px;   
+}
+
+#rules {
+    margin: 0 0 60px;  
+}
+
+#start-button {
+    display: inline-block;
+    border: 3px solid black;
+    background: rgba(255,255,255,0.7);
+    font-size: 30px;
+    line-height: 70px;
+    height: 70px;
+    padding: 0 30px;
+    color: black;
+    cursor: pointer;
+    text-transform: uppercase;
 }

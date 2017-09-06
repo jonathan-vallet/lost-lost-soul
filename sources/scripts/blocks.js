@@ -62,6 +62,7 @@ function drawBlocks() {
         }
 
         // Checks if current block to make player fall if not on a platform
+        // Collision checks is done here to avoid another loop on blocks
         if(player.x >= x && player.x < (x + block.w)) {
             // Checks block platfoms to know if player is on one or not
             var isPlayerOnPlatform = false;

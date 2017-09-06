@@ -1,13 +1,13 @@
 var player = {};
 const GRAVITY = 0.5; // Gravity, to make jump go back to the ground
 const JUMP_IMPULSE = 12; // Jump impulsion when starting to jump. Decreases over tim due to GRAVITY
-
+var isPlayerImageLoaded = false;
 /**
  * Inits player data at game start
  */
 function initPlayer() {
     player = {
-        x: 350,
+        x: 200,
         y: 182,
         width: 42,
         height: 36,
@@ -18,6 +18,9 @@ function initPlayer() {
 
     let playerImage = new Image();
     playerImage.src = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACoAAAAkAgMAAACCp0C4AAAADFBMVEUAAAD///////8AAAA4fh26AAAAAnRSTlMA32D/An0AAACJSURBVBjTrdC9DYQwDIbhyHRMckp1y+SKq648MUWWQELQICH+vASMxAYQ7BAHQclbPZL1NVZ7iGgVB85/79Q580bXWIuRDeSBrMmdFePFJB6Dd/GEpztzpRXj7+xU/IqMOvLRVAe38xzcRe7XJbhS7+BGPO6GL08TZ38YyDoy5MaYj2Lzl5N12QDN7Ll+6NbFBQAAAABJRU5ErkJggg==';
+    playerImage.addEventListener('load', function() {
+        isPlayerImageLoaded = true;
+    });
     player.image = playerImage;
 }
 

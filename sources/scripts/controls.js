@@ -39,3 +39,7 @@ window.addEventListener('touchend', function(k) {
     player.isJumping = false;
     stopJump();
 });
+
+document.getElementById('start-button').addEventListener('click', function() {
+    startGame();
+});

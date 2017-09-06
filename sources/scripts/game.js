@@ -13,6 +13,7 @@ var startTime = +new Date();
 
 // Just to try light update real time, while platform moving is not done yet
 var test = document.createElement('canvas');
+var startScreen = document.getElementById('start');
 test.width = gameCanvas.width;
 test.height = gameCanvas.height;
 var contextTest = test.getContext('2d');
@@ -21,20 +22,31 @@ var drawBlockList = [];
 var isGameInPause = false;
 var pauseTime = 0;
 
-function init() {
+function showStartingScreen() {
     initPlayer();
-    initBlocks();
+    gameDuration = 100000;
+    var loadingInterval = setInterval(function() {
+        if(isPlayerImageLoaded) {
+            clearInterval(loadingInterval);
+
+            generateBackground(background, 300, gameCanvas.height, 0.2, 20, 4, '#1e3d5a', false);
+            generateBackground(middleground, 400, gameCanvas.height, 0.3, 50, 3, '#101f32', true);
+
+            drawPlayer();
+            generateLightFilter();
+        }
+    }, 10);
+}
+
+function startGame() {
+    console.log('start game');
+    gameDuration = 0;
     
-    // Generates background 1
-    generateBackground(background, 300, gameCanvas.height, 0.2, 20, 4, '#1e3d5a', false);
-    generateBackground(middleground, 400, gameCanvas.height, 0.3, 50, 3, '#101f32', true);
+    initBlocks();
 
     //initReaper();
-
-    // Ugly set timeout to wait images loading
-    setTimeout(function() {
-        loop();
-    }, 500);
+    startScreen.style.display = 'none';
+    loop();
 }
 
 function loop() {
@@ -85,4 +97,4 @@ function resumeGame() {
     });
 }*/
 
-init();
+showStartingScreen();

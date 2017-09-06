@@ -12,11 +12,7 @@ var gameDuration = 0;
 var startTime = +new Date();
 
 // Just to try light update real time, while platform moving is not done yet
-var test = document.createElement('canvas');
 var startScreen = document.getElementById('start');
-test.width = gameCanvas.width;
-test.height = gameCanvas.height;
-var contextTest = test.getContext('2d');
 
 var drawBlockList = [];
 var isGameInPause = false;
@@ -24,7 +20,9 @@ var pauseTime = 0;
 
 function showStartingScreen() {
     initPlayer();
-    gameDuration = 100000;
+    initDiamond();
+
+    startTime = +new Date() - 100000;
     var loadingInterval = setInterval(function() {
         if(isPlayerImageLoaded) {
             clearInterval(loadingInterval);
@@ -34,12 +32,15 @@ function showStartingScreen() {
 
             drawPlayer();
             generateLightFilter();
+            loadingLoop();
         }
     }, 10);
 }
 
+
+
 function startGame() {
-    console.log('start game');
+    startTime = +new Date();
     gameDuration = 0;
     
     initBlocks();
@@ -47,6 +48,16 @@ function startGame() {
     //initReaper();
     startScreen.style.display = 'none';
     loop();
+}
+
+function loadingLoop() {
+    let now = new Date();
+    gameDuration = now - startTime;
+
+    gameContext.clearRect(0, 0, gameCanvas.width, gameCanvas.height);
+    drawPlayer();
+    generateLightFilter();
+ //   requestAnimationFrame(loadingLoop);
 }
 
 function loop() {
@@ -65,7 +76,6 @@ function loop() {
 
     //updateBackgroundSpeed();
     gameContext.clearRect(0, 0, gameCanvas.width, gameCanvas.height);
-    gameContext.drawImage(test, 0, 0);
 
     updatePlayerPosition();
     drawBlocks();

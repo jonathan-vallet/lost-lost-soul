@@ -1,6 +1,11 @@
 var player = {};
-const GRAVITY = 0.5; // Gravity, to make jump go back to the ground
-const JUMP_IMPULSE = 12; // Jump impulsion when starting to jump. Decreases over tim due to GRAVITY
+//const GRAVITY = 0.3; // Gravity, to make jump go back to the ground
+//const JUMP_IMPULSE = 9; // Jump impulsion when starting to jump. Decreases over tim due to GRAVITY
+
+const GRAVITY = 0.3; // Gravity, to make jump go back to the ground
+const JUMP_IMPULSE = 9; // Jump impulsion when starting to jump. Decreases over tim due to GRAVITY
+
+
 var isPlayerImageLoaded = false;
 /**
  * Inits player data at game start
@@ -29,7 +34,6 @@ function initPlayer() {
  */
 function drawPlayer() {
     gameContext.drawImage(player.image, player.x - player.width / 2, player.y - player.height / 2);
-
     // Adds eyes blinking
     let eyeHeight = Math.floor(gameDuration / 100) % 50 !== 4 ? 5 : 1;
     gameContext.fillStyle= '#000';
@@ -47,6 +51,7 @@ function drawPlayer() {
  */
 function startJump() {
     if(player.isOnGround) {
+        console.log('start:', gameDuration);
         player.currentVelocityY = -JUMP_IMPULSE;
         player.isOnGround = false;
         player.isJumping = true;
@@ -76,6 +81,7 @@ function startFall() {
  * Players stop falling when he hits a platform while going down
  */
 function stopFall() {
+    console.log('stop:', gameDuration);
     player.currentVelocityY = 0;
     player.isOnGround = true;
     // Round to be on an exact platform

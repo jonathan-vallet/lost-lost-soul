@@ -40,6 +40,10 @@ window.addEventListener('touchend', function(k) {
     stopJump();
 });
 
+window.addEventListener('resize', function(k) {
+    checkSize();
+});
+
 document.getElementById('start-button').addEventListener('click', function() {
     startGame();
 });

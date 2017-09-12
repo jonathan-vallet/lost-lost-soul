@@ -1,0 +1,21 @@
+#shop-item-list {
+    text-align: left;
+    li {
+        display: inline-block;
+        vertical-align: top;
+        width: 50%;
+        padding-left: 10px;
+    }
+}
+
+.shop-item-data {
+    width: 90px;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.shop-text {
+    width: calc(100% - 90px);
+    display: inline-block;
+    vertical-align: top;
+}

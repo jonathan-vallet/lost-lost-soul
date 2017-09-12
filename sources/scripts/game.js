@@ -1,6 +1,10 @@
+var gameWrapper = document.getElementById('game');
 var gameCanvas = document.getElementById('canvas');
-gameCanvas.width = 900;
-gameCanvas.height = 400;
+const GAME_WIDTH = 900;
+const GAME_HEIGHT = 400;
+
+gameCanvas.width = GAME_WIDTH;
+gameCanvas.height = GAME_HEIGHT;
 var gameContext = gameCanvas.getContext('2d');
 var background =  document.getElementById('bg1');
 var middleground =  document.getElementById('bg2');
@@ -8,7 +12,7 @@ var ui =  document.getElementById('ui');
 var diamondsCounter = document.getElementById('diamonds');
 var healthCounter = document.getElementById('health');
 
-var gameSpeed = 100;
+var gameSpeed = 200;
 var backgroundSpeed = 20;
 var middlegroundSpeed = 15;
 var gameDuration = 0;
@@ -18,6 +22,7 @@ var health = 100;
 var isGameEnded = false;
 
 const FALL_DAMAGE_VALUE = 20;
+const SPIKE_DAMAGE_VALUE = 1;
 
 var startScreen = document.getElementById('start');
 
@@ -26,6 +31,7 @@ var isGameInPause = false;
 var pauseTime = 0;
 
 function showStartingScreen() {
+    checkSize();
     initPlayer();
     initDiamond();
 
@@ -101,10 +107,6 @@ function loop() {
     // Displays light filter over character
     generateLightFilter();
 
-
-    // TODO: draw ui a single time, not at every frame    
-    drawDiamond(850, 15);
-    
     if(!isGameEnded) {
         requestAnimationFrame(loop);
     }

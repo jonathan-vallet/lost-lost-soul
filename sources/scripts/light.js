@@ -1,4 +1,4 @@
-var lightRadiusDecreaseSpeed = 1;
+var lightRadiusDecreaseSpeed = 4;
 
 const INITIAL_LIGHT_RADIUS = 200; // Radius of light circle, in pixels
 const INITIAL_LIGHT_BRIGHTNESS = 70; // Brightness of the scene (opacity of none lightned part)

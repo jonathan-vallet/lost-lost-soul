@@ -5,7 +5,7 @@ var diamondHeight = 20;
 function initDiamond() {
     diamondCanvas.width = diamondWidth;
     diamondCanvas.height = diamondHeight;
-    
+
     var context = diamondCanvas.getContext('2d');
     
     context.fillStyle = '#ebf855';
@@ -23,7 +23,12 @@ function initDiamond() {
     context.lineTo(8, 10);
     context.lineTo(5, 20);
     context.fill();
+
+    [].forEach.call(document.querySelectorAll('.diamond'), function(el) {
+        el.style['background-image'] = 'url("' + diamondCanvas.toDataURL(); + '")';
+    });
 } 
+
 
 function drawDiamond(x, y) {
     gameContext.drawImage(diamondCanvas, x - diamondWidth / 2, y - diamondHeight / 2);

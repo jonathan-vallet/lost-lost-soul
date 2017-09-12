@@ -26,9 +26,10 @@ var gameDuration = 0;
 var startTime = +new Date();
 var collectedDiamonds = 142;
 var collectedDiamondsTotal = 0;
-var DEFAULT_HEALTH = 1;
+var DEFAULT_HEALTH = 100;
 var health = DEFAULT_HEALTH;
 var isGameEnded = false;
+var isGameStarted = false;
 
 const FALL_DAMAGE_VALUE = 20;
 const SPIKE_DAMAGE_VALUE = 1;
@@ -61,6 +62,9 @@ function showStartingScreen() {
     initPlayer();
     initDiamond();
     getSavedData();
+    
+    // Gets best score
+    document.getElementById('start-best-time').innerText = savedData.s;
 
     startTime = +new Date() - 20000;
     var loadingInterval = setInterval(function() {
@@ -80,8 +84,11 @@ function showStartingScreen() {
 
 function startGame() {
     resetPlayerState();
+    background.style['animation-play-state'] = 'running';
+    middleground.style['animation-play-state'] = 'running';
 
     isGameEnded = false;
+    isGameStarted = true;
     startTime = +new Date();
     gameDuration = 0;
     health = DEFAULT_HEALTH;
@@ -105,6 +112,14 @@ function loseGame() {
     background.style['animation-play-state'] = 'paused';
     middleground.style['animation-play-state'] = 'paused';
     
+    // Displayh score, and save if best score
+    var playedTime = Math.floor(gameDuration / 1000);
+    savedData.s = Math.max(playedTime, savedData.s);
+    saveData();
+
+    document.getElementById('shop-current-score').innerText = playedTime;
+    document.getElementById('shop-best-score').innerText = savedData.s;
+
     // Displays shop / end screen after a short time
     setTimeout(function() {
         // Collects diamonds
@@ -126,7 +141,9 @@ function loadingLoop() {
     drawPlayer();
     generateLightFilter();
 
-    requestAnimationFrame(loadingLoop);
+    if(!isGameStarted) {
+        requestAnimationFrame(loadingLoop);
+    }
 }
 
 /*

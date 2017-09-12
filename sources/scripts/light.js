@@ -13,8 +13,8 @@ function generateLightFilter() {
     let context = canvas.getContext('2d');
     
     // Gets light radius. Decrease over time, and has a small variation too to simulate firelight effect
-    let lightRadius = Math.max(60, INITIAL_LIGHT_RADIUS - (gameDuration / 1000 * lightRadiusDecreaseSpeed)) - Math.abs((gameDuration / 200) % 10 - 5);
-    let ligthBritghness = Math.max(5, INITIAL_LIGHT_BRIGHTNESS - (gameDuration / 1000 * (lightRadiusDecreaseSpeed * INITIAL_LIGHT_BRIGHTNESS / INITIAL_LIGHT_RADIUS)));
+    let lightRadius = Math.max(60, INITIAL_LIGHT_RADIUS - (gameDuration / 1000 * lightRadiusDecreaseSpeed * (2 - bonusList.light.currentLevel * 0.1) / 2)) - Math.abs((gameDuration / 200) % 10 - 5);
+    let ligthBritghness = Math.max(5, INITIAL_LIGHT_BRIGHTNESS - (gameDuration / 1000 * (lightRadiusDecreaseSpeed * INITIAL_LIGHT_BRIGHTNESS / INITIAL_LIGHT_RADIUS * (2 - bonusList.light.currentLevel * 0.1) / 2)));
 
     // Fills a rect with opacity reduced of current brightness
     context.fillStyle = 'rgba(0, 0, 0, ' + (1 - ligthBritghness / 100) + ')';

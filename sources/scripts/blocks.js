@@ -178,7 +178,8 @@ function drawBlocks() {
                 if(player.x + 3 >= (spikeX + x) && player.x  - 3 <= (spikeXEnd + x)) {
                     var playerBottomY = player.y + player.height / 2;
                     if(playerBottomY >= spikeY && playerBottomY < spikeY + 11) {
-                        hurtPlayer(SPIKE_DAMAGE_VALUE);
+                        console.log(bonusList);
+                        hurtPlayer(SPIKE_DAMAGE_VALUE * (1 - bonusList.spikes.currentLevel * 0.05));
                         break;
                     }
                 }

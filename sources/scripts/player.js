@@ -115,8 +115,9 @@ function stopFall() {
 }
 
 function hurtPlayer(value) {
+    console.log('hurtPlayer', value);
     health = Math.max(0, health - value);
-    healthCounter.innerText = health
+    healthCounter.innerText = Math.floor(health);
     if(health <= 0) {
         loseGame();
     }
@@ -137,7 +138,7 @@ function updatePlayerPosition() {
     }
     
     if(player.y - player.height / 2 > gameCanvas.height) {
-        hurtPlayer(FALL_DAMAGE_VALUE);
+        hurtPlayer(FALL_DAMAGE_VALUE * (1 - bonusList.fall.currentLevel * 0.05));
         player.y = - player.height / 2;
     }
 }

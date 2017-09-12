@@ -49,6 +49,25 @@ document.getElementById('start-button').addEventListener('click', function() {
 });
 
 document.getElementById('restart-button').addEventListener('click', function() {
-    console.log('restatt');
-    restartGame();
+    startGame();
+});
+
+document.getElementById('get-more-button').addEventListener('click', function() {
+    document.getElementById('get-more-amount').innerText = collectedDiamondsTotal;
+    getMorePopin.style.display = 'block';
+});
+
+
+document.getElementById('close-popin-button').addEventListener('click', function() {
+    getMorePopin.style.display = 'none';
+});
+
+// Sets shop item clickable
+[].forEach.call(document.querySelectorAll('#shop-item-list li'), function(el) {
+    el.addEventListener('click', purchaseItem);
+});
+
+//Sets shop item clickable
+[].forEach.call(document.querySelectorAll('#get-more-popin .shop-item-list li'), function(el) {
+    el.addEventListener('click', getFreeDiamonds);
 });

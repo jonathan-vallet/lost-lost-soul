@@ -9,6 +9,7 @@ var startScreen = document.getElementById('start');
 var shopScreen = document.getElementById('shop');
 var ui = document.getElementById('ui');
 var collectedDiamondsTotalElement = document.getElementById('totalDiamondsCollected');
+var getMorePopin = document.getElementById('get-more-popin');
 
 const GAME_WIDTH = 900;
 const GAME_HEIGHT = 400;
@@ -74,37 +75,8 @@ function showStartingScreen() {
             loadingLoop();
         }
     }, 10);
-    
-    // Sets shop item clickages
-    [].forEach.call(document.querySelectorAll('#shop-item-list li'), function(el) {
-        el.addEventListener('click', purchaseItem);
-    });
 }
 
-function getSavedData() {
-    var savedDataText = getCookie('lostsoul');
-    if(savedDataText) {
-        savedData = JSON.parse(savedDataText);
-    } else {
-        savedData = {
-            d: 0,
-            b: {
-                light: 0,
-                fall: 0,
-                spikes: 0
-            }
-        }
-    }
-    
-    collectedDiamondsTotal = savedData.d || 0;
-    for(var bonus in bonusList) {
-        bonusList[bonus].currentLevel = savedData.b[bonus];
-    }
-}
-
-function saveData() {
-    setCookie('lostsoul', JSON.stringify(savedData));
-}
 
 function startGame() {
     resetPlayerState();
@@ -125,6 +97,9 @@ function startGame() {
     loop();
 }
 
+/*
+ * Game is over. stops animation and game loop, displays shop
+ */
 function loseGame() {
     isGameEnded = true;
     background.style['animation-play-state'] = 'paused';
@@ -140,11 +115,9 @@ function loseGame() {
     }, 500);
 }
 
-function restartGame() {
-    startGame();
-}
-
-
+/*
+ * canvas animation loop during start screen (eyes blinking and light effect)
+ */
 function loadingLoop() {
     let now = new Date();
     gameDuration = now - startTime;
@@ -156,6 +129,9 @@ function loadingLoop() {
     requestAnimationFrame(loadingLoop);
 }
 
+/*
+ * Game loop
+ */
 function loop() {
     if(isGameInPause) {
         return;

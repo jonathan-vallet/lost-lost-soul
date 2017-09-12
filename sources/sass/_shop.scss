@@ -1,4 +1,4 @@
-#shop-item-list {
+.shop-item-list {
     text-align: left;
     li {
         display: inline-block;
@@ -38,4 +38,16 @@
 
 .shop-current-bonus {
     font-size: 14px;
+}
+
+#restart-button {
+    margin-top: 20px;
+}
+
+#get-more-button {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    cursor: pointer;
+    padding: 20px;
 }

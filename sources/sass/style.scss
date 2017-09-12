@@ -28,7 +28,8 @@ body {
 #bg2,
 #start,
 #ui,
-#shop {
+#shop,
+#get-more-popin {
     position: absolute;
     top: 0;
     left: 0;
@@ -58,7 +59,8 @@ body {
 }
 
 #start,
-#shop {
+#shop,
+#get-more-popin {
     color: #fff;
     font-family: sans-serif;
     text-align: center;
@@ -74,11 +76,18 @@ body {
     }
 }
 
-
-
 #shop {
     display: none;
     background: rgba(0,0,0,0.7);
+}
+
+#get-more-popin {
+    margin: 0 5%;
+    width: 90%;
+    top: 5%;
+    height: 90%;
+    background: rgba(0,0,0,0.9);
+    border: 2px solid #fff;
 }
 
 .title {
@@ -94,14 +103,15 @@ body {
 }
 
 #start-button,
-#restart-button {
+#restart-button,
+#close-popin-button {
     display: inline-block;
     border: 3px solid black;
-    background: rgba(255,255,255,0.7);
-    font-size: 30px;
-    line-height: 70px;
-    height: 70px;
-    padding: 0 30px;
+    background: rgba(255,255,180,0.7);
+    font-size: 26px;
+    line-height: 50px;
+    height: 50px;
+    padding: 0 20px;
     color: black;
     cursor: pointer;
     text-transform: uppercase;
@@ -115,15 +125,13 @@ body {
 #diamonds,
 #health {
     position: absolute;
-    width: 40px;
     line-height: 30px;
     font-size: 20px;
     color: #fff;
 }
 
-
 #diamonds {
-    right: 0;
+    right: 10px;
 }
 
 #health {
@@ -134,6 +142,19 @@ body {
     padding-left: 20px;
     background-repeat: no-repeat;
     background-position: left center;
+}
+
+#get-more-popin {
+    display: none;
+    .title {
+        .diamond {
+            margin-left: 10px;
+            background-size: contain;
+        }
+    }
+    .shop-item-list {
+        margin: 30px 0;
+    }
 }
 
 @import 'shop';

@@ -5,7 +5,7 @@ var firstBlock = {
   //  p: [[0, 0, 10]],
     p: [[0, 0, 10]],
     d: [[4.9, 0.5], [5.3, 0.8], [5.7, 0.5], [6.9, 0.7], [7.3, 1.2], [7.9, 1.2], [8.3, 0.7]],
-    s: [[0, 0, 10]]
+    s: []//[[0, 0, 10]]
 };
 
 // List of available blocks. Each blocks is an array of platforms wdth [x, y, width, height]
@@ -58,6 +58,7 @@ var availableBlockList = [
 var availableBlockNumber = availableBlockList.length;
 
 function initBlocks() {
+    drawBlockList = [];
     for(let blockNumber = 0; blockNumber < DRAWN_BLOCKS; ++blockNumber) {
         let block = generateBlock(blockNumber === 0);
         block.x = blockNumber === 0 ? 0 : (drawBlockList[blockNumber - 1].x + drawBlockList[blockNumber - 1].w);

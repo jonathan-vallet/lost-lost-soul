@@ -39,3 +39,10 @@ function purchaseItem(item) {
     displayShop();
 }
 
+function getFreeDiamonds() {
+    collectedDiamondsTotal += parseInt(this.getAttribute('data-value'));
+    savedData.d = collectedDiamondsTotal;
+    saveData();
+    document.getElementById('get-more-amount').innerText = collectedDiamondsTotal;
+    displayShop();
+}

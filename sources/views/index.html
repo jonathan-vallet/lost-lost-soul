@@ -20,7 +20,7 @@
         <div id="shop">
             <h1 class="title">You are lost</h1>
             <p>You can purchase upgrades to go further in your next game. <span id="totalDiamondsCollected" class="diamond"></span></p>
-            <ul id="shop-item-list">
+            <ul id="shop-item-list" class="shop-item-list">
                 <li data-item="light">
                     <p class="shop-item-data">
                         <span class="diamond shop-item-price">50</span>
@@ -53,6 +53,32 @@
                 </li>
             </ul>
             <p id="restart-button">Restart</p>
+            <p id="get-more-button">get more&nbsp;<span class="diamond"></span></p>
+        </div>
+        <div id="get-more-popin">
+            <h1 class="title">Get more <span class="diamond"></span></h1>
+            <p><span class="diamond" id="get-more-amount">0</span> for now</p>
+            <ul class="shop-item-list">
+                <li data-value="100">
+                    <p class="shop-item-data">
+                        <span class="diamond shop-item-price">100</span>
+                    </p>
+                    <div class="shop-text">
+                        <h2>Like diamonds</h2>
+                        <p class="shop-description">A few diamonds for free!<br/>Don't forget to like my game</p>
+                    </div>
+                </li>
+                <li data-value="1000">
+                    <p class="shop-item-data">
+                        <span class="diamond shop-item-price">1000</span>
+                    </p>
+                    <div class="shop-text">
+                        <h2>Share diamonds</h2>
+                        <p class="shop-description">A lot of diamonds for free!<br />Don't forget to share my game on your favorites social networks!</p>
+                    </div>
+                </li>
+            </ul>
+            <p id="close-popin-button">Close</p>
         </div>
         <div id="ui">
             <p id="health">100</p>

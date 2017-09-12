@@ -18,20 +18,41 @@
             <p id="start-button">Start</p>
         </div>
         <div id="shop">
-            <h1 class="title">Shop</h1>
+            <h1 class="title">You are lost</h1>
+            <p>You can purchase upgrades to go further in your next game</p>
             <ul id="shop-item-list">
-                <li>
+                <li data-item="light">
                     <p class="shop-item-data">
-                        +10%
                         <span class="diamond shop-item-price">50</span>
                     </p>
                     <div class="shop-text">
-                        <h2>Light power</h2>
-                        Increases light duration
-                        current bonus: <span>0%</span>
+                        <h2>+10% Light power</h2>
+                        <p class="shop-description">Increases light duration</p>
+                        <p class="shop-current-bonus">current bonus: <span>0%</span></p>
+                    </div>
+                </li>
+                <li data-item="fall">
+                    <p class="shop-item-data">
+                        <span class="diamond shop-item-price">50</span>
+                    </p>
+                    <div class="shop-text">
+                        <h2>-10% Fall damages</h2>
+                        <p class="shop-description">Reduces damages when falling of ground</p>
+                        <p class="shop-current-bonus">current bonus: <span>0%</span></p>
+                    </div>
+                </li>
+                <li data-item="spikes">
+                    <p class="shop-item-data">
+                        <span class="diamond shop-item-price">50</span>
+                    </p>
+                    <div class="shop-text">
+                        <h2>-10% Spikes damages</h2>
+                        <p class="shop-description">Reduces damages when walking on spikes</p>
+                        <p class="shop-current-bonus">current bonus: <span>0%</span></p>
                     </div>
                 </li>
             </ul>
+            <p id="restart-button">Restart</p>
         </div>
         <div id="ui">
             <p id="health">100</p>

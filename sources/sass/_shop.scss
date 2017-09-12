@@ -17,5 +17,9 @@
 .shop-text {
     width: calc(100% - 90px);
     display: inline-block;
-    vertical-align: top;
+    vertical-align: middle;
+}
+
+.shop-current-bonus {
+    font-size: 12px;
 }

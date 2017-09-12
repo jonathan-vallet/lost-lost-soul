@@ -47,3 +47,8 @@ window.addEventListener('resize', function(k) {
 document.getElementById('start-button').addEventListener('click', function() {
     startGame();
 });
+
+document.getElementById('restart-button').addEventListener('click', function() {
+    console.log('restatt');
+    restartGame();
+});

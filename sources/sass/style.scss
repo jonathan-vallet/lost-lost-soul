@@ -69,16 +69,19 @@ body {
 
 #start {
     padding-left: 40%;
+    .title {
+         margin-bottom: 40px
+    }
 }
 
 
 
 #shop {
     display: none;
+    background: rgba(0,0,0,0.7);
 }
 
 .title {
-    margin: 0 0 40px;   
     font-size: 40px;
 }
 
@@ -90,7 +93,8 @@ body {
     margin: 0 0 60px;  
 }
 
-#start-button {
+#start-button,
+#restart-button {
     display: inline-block;
     border: 3px solid black;
     background: rgba(255,255,255,0.7);

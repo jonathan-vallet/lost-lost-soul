@@ -1,16 +1,20 @@
+// Get elements
 var gameWrapper = document.getElementById('game');
 var gameCanvas = document.getElementById('canvas');
+var diamondsCounter = document.getElementById('diamonds');
+var healthCounter = document.getElementById('health');
+var background =  document.getElementById('bg1');
+var middleground =  document.getElementById('bg2');
+var startScreen = document.getElementById('start');
+var shopScreen = document.getElementById('shop');
+var ui = document.getElementById('ui');
+
 const GAME_WIDTH = 900;
 const GAME_HEIGHT = 400;
 
 gameCanvas.width = GAME_WIDTH;
 gameCanvas.height = GAME_HEIGHT;
 var gameContext = gameCanvas.getContext('2d');
-var background =  document.getElementById('bg1');
-var middleground =  document.getElementById('bg2');
-var ui =  document.getElementById('ui');
-var diamondsCounter = document.getElementById('diamonds');
-var healthCounter = document.getElementById('health');
 
 var gameSpeed = 200;
 var backgroundSpeed = 20;
@@ -18,24 +22,30 @@ var middlegroundSpeed = 15;
 var gameDuration = 0;
 var startTime = +new Date();
 var collectedDiamonds = 0;
-var health = 100;
+var collectedDiamondsTotal = 0;
+var DEFAULT_HEALTH = 1;
+var health = DEFAULT_HEALTH;
 var isGameEnded = false;
 
 const FALL_DAMAGE_VALUE = 20;
 const SPIKE_DAMAGE_VALUE = 1;
 
-var startScreen = document.getElementById('start');
-
 var drawBlockList = [];
 var isGameInPause = false;
 var pauseTime = 0;
+
+var bonusList = {
+    light: 0,
+    fall: 0,
+    spikes: 0
+};
 
 function showStartingScreen() {
     checkSize();
     initPlayer();
     initDiamond();
 
-    startTime = +new Date() - 100000;
+    startTime = +new Date() - 20000;
     var loadingInterval = setInterval(function() {
         if(isPlayerImageLoaded) {
             clearInterval(loadingInterval);
@@ -48,20 +58,28 @@ function showStartingScreen() {
             loadingLoop();
         }
     }, 10);
+    
+    // Sets shop item clickages
+    [].forEach.call(document.querySelectorAll('#shop-item-list li'), function(el) {
+        el.addEventListener('click', purchaseItem);
+    });
 }
 
-
-
 function startGame() {
+    resetPlayerState();
+
+    isGameEnded = false;
     startTime = +new Date();
     gameDuration = 0;
+    health = DEFAULT_HEALTH;
     
     // Draws ui diamond
-    
+
     initBlocks();
 
     //initReaper();
     startScreen.style.display = 'none';
+    shopScreen.style.display = 'none';
     ui.style.display = 'block';
     loop();
 }
@@ -70,7 +88,22 @@ function loseGame() {
     isGameEnded = true;
     background.style['animation-play-state'] = 'paused';
     middleground.style['animation-play-state'] = 'paused';
+    
+    // Displays shop / end screen after a short time
+    setTimeout(function() {
+        // Collects diamonds
+        collectedDiamondsTotal += collectedDiamonds;
+        collectedDiamonds = 0;
+        
+        // Displays shop screen
+        shopScreen.style.display = 'block';
+    }, 500);
 }
+
+function restartGame() {
+    startGame();
+}
+
 
 function loadingLoop() {
     let now = new Date();
@@ -79,7 +112,8 @@ function loadingLoop() {
     gameContext.clearRect(0, 0, gameCanvas.width, gameCanvas.height);
     drawPlayer();
     generateLightFilter();
- //   requestAnimationFrame(loadingLoop);
+
+    requestAnimationFrame(loadingLoop);
 }
 
 function loop() {

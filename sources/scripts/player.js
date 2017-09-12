@@ -6,22 +6,15 @@ var playerHurtTimeout;
 const GRAVITY = 0.2; // Gravity, to make jump go back to the ground
 const JUMP_IMPULSE = 7.4; // Jump impulsion when starting to jump. Decreases over tim due to GRAVITY
 const GAME_MULTIPLIER = 0.7; // To change space between blocks for jumps, depending of gravity/impulse values
+const PLAYER_START_X = 200;
+const PLAYER_START_Y = 182;
 
 var isPlayerImageLoaded = false;
 /**
  * Inits player data at game start
  */
 function initPlayer() {
-    player = {
-        x: 200,
-        y: 182,
-        width: 42,
-        height: 36,
-        isJumping: false,
-        isOnGround: true,
-        currentVelocityY: 0,
-        isHurt: false
-    };
+    resetPlayerState();
     var playerCanvas = document.createElement('canvas');
     playerCanvas.width = player.width;
     playerCanvas.height = player.height;
@@ -34,6 +27,17 @@ function initPlayer() {
     player.canvas = playerCanvas;
     player.context = playerCanvas.getContext('2d');
     player.image = playerImage;
+}
+
+function resetPlayerState() {
+    player.x = PLAYER_START_X;
+    player.y = PLAYER_START_Y;
+    player.width = 42;
+    player.height = 36;
+    player.isJumping = false;
+    player.isOnGround = true;
+    player.currentVelocityY = 0;
+    player.isHurt = false;
 }
 
 /**

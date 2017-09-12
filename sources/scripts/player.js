@@ -75,7 +75,6 @@ function drawPlayer() {
  */
 function startJump() {
     if(player.isOnGround) {
-        console.log('start:', gameDuration);
         player.currentVelocityY = -JUMP_IMPULSE;
         player.isOnGround = false;
         player.isJumping = true;
@@ -105,7 +104,6 @@ function startFall() {
  * Players stop falling when he hits a platform while going down
  */
 function stopFall() {
-    console.log('stop:', gameDuration);
     player.currentVelocityY = 0;
     player.isOnGround = true;
     // Round to be on an exact platform

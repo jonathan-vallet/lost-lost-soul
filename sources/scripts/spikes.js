@@ -4,7 +4,6 @@
  * @param spike array - spike data (x, y, end x...)
  */
 function generateSpike(context, spike) {
-    console.log(spike);
     var [xStart, y, xEnd] = spike;
     var height = 20;
     // Number of spikes to draw
@@ -26,7 +25,6 @@ function generateSpike(context, spike) {
         }
 
         context.lineTo(currentX, isSpike ? (gaussianRandom() - 1) * height + y : y);
-       console.log(currentX);
     } while (currentX < xEnd - 6);
     context.lineTo(xEnd, y + 1);
     context.lineTo(xStart, y + 1);

@@ -68,6 +68,8 @@ function startGame() {
 
 function loseGame() {
     isGameEnded = true;
+    background.style['animation-play-state'] = 'paused';
+    middleground.style['animation-play-state'] = 'paused';
 }
 
 function loadingLoop() {
@@ -94,7 +96,7 @@ function loop() {
         pauseTime = 0;
     }
 
-    updateBackgroundSpeed();
+    //updateBackgroundSpeed();
     gameContext.clearRect(0, 0, gameCanvas.width, gameCanvas.height);
 
     // Moves player (jump, fall...)

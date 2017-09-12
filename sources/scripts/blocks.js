@@ -1,6 +1,8 @@
 const DRAWN_BLOCKS = 3; // Number of blocks in memory loop
+const BLOCK_SPACER = 0.5; // Adds a little jump between blocks
 
 var firstBlock = {
+  //  p: [[0, 0, 10]],
     p: [[0, 0, 10]],
     d: [[4.9, 0.5], [5.3, 0.8], [5.7, 0.5], [6.9, 0.7], [7.3, 1.2], [7.9, 1.2], [8.3, 0.7]],
     s: []
@@ -9,22 +11,48 @@ var firstBlock = {
 // List of available blocks. Each blocks is an array of platforms wdth [x, y, width, height]
 var availableBlockList = [
 {
+    p: [[0, 0, 1], [1.5, 1, 2.5], [3 ,2 ,4], [3 ,0 ,4], [4.5, 1, 5.5], [6, 2, 7], [6, 0, 7],[7.5, 1, 8.5],[9, 2, 10],[9, 0, 10],[10.5, 1, 11.5],[12, 2, 13],[12, 0, 13],[13.5, 1, 15.5]],
+    d: [[6.2, 0.3],[6.5, 0.3],[6.8, 0.3],[7.7, 1.3],[8, 1.3],[8.3, 1.3],[12.2, 0.3],[12.5, 0.3],[12.8, 0.3]],
+    s: [[3 ,0 ,4], [6, 2, 7],[9, 0, 10],[10.5, 1, 11.5], [12, 2, 13]]
+},
+/*
+{
+    p: [[0, 0, 1], [1, 1, 2],[2,2,3],[2,0,3],[3, 1, 4],[4, 2, 5],[4, 0, 5],[5, 1, 6],[6, 2, 7],[6, 0, 7],[7, 1, 8],[8, 2, 9],[8, 0, 9],[9, 1, 11]],
+    d: [],
+    s: []
+},
+
+
+{
+    p: [[0, 0, 1], [1.5, 1, 2.5], [3 ,2 ,4], [3 ,0 ,4], [4.5, 1, 5.5], [6, 2, 7], [6, 0, 7],[7.5, 1, 8.5],[9, 2, 10],[9, 0, 10],[10.5, 1, 11.5],[12, 2, 13],[12, 0, 13],[13.5, 1, 15.5]],
+    d: [[1.7, 1.3],[2, 1.3],[2.3, 1.3], [6.2, 2.3],[6.5, 2.3],[6.8, 2.3],[7.7, 1.3],[8, 1.3],[8.3, 1.3]],
+    s: [[3, 2, 4],[6,0,7],[9, 2, 10],[12,0,13]]
+},
+{
+    p: [[0, 0, 1], [1, 1, 2], [3, 2.2, 8], [3, 1, 3.5], [4.5, 1, 5], [6, 1, 6.5], [7.5, 1, 8], [8.5, 0, 10]],
+    d: [[3.2, 1.5], [3.5, 1.5], [3.8, 1.5], [4.1, 1.5], [4.4, 1.5], [4.7, 1.5], [5, 1.5], [5.3, 1.5], [5.6, 1.5], [5.9, 1.5], [6.2, 1.5], [6.5, 1.5], [6.8, 1.5], [7.1, 1.5], [7.4, 1.5], [7.7, 1.5], [9, 0.2], [9.3, 0.2], [9.6, 0.2], [9.9, 0.2]],
+    s: [[8.5, 0, 9]]
+},
+{
+    p: [[0, 0, 11], [1.5, 1, 3], [4, 1, 4.5], [5, 1, 6.5], [6.5, 2, 7.5], [8.5, 2, 10], [8, 1, 11]],
+    d: [[6.7, 2.2], [7, 2.2], [7.3, 2.2]],
+    s: [[1, 0, 11], [8.5, 2, 10]]
+},
+{
     p: [[0, 0, 2], [2.5, 1, 3.5], [4, 2, 5], [4, 0, 7]],
     d: [[4.2, 2.2], [4.5, 2.2], [4.8, 2.2]],
     s: [[4, 0, 5.5]]
 },
-
-  /*
   { // 3 little jumps
       p: [[0, 0, 1], [1.5, 0, 2.5], [3, 0, 4], [4.5, 0, 5.5]],
-      d: []//[[100, 250]],
+      d: [],
       s: []
   },
   { // small/large jumps
     p: [[0, 0, 1], [1.5, 0, 2.5], [4, 0, 5], [5.5, 0, 6.5], [7.5, 0, 8.5]],
-    d: []//[[100, 250]],
+    d: [],
     s: []
-},
+}
   */
 ];
 
@@ -34,7 +62,6 @@ function initBlocks() {
     for(let blockNumber = 0; blockNumber < DRAWN_BLOCKS; ++blockNumber) {
         let block = generateBlock(blockNumber === 0);
         block.x = blockNumber === 0 ? 0 : (drawBlockList[blockNumber - 1].x + drawBlockList[blockNumber - 1].w);
-        console.log(block);
         drawBlockList.push(block);
     }
 }
@@ -53,10 +80,9 @@ function generateBlock(isFirst) {
         var [xStart, yLevel, xEnd] = p;
         maxDuration = Math.max(maxDuration, xEnd);
     }
-    var spacer = 0.5; // Adds a little jump between blocks
     
     let canvas = document.createElement('canvas');
-    canvas.width = (maxDuration + spacer) * gameSpeed * GAME_MULTIPLIER;
+    canvas.width = (maxDuration + BLOCK_SPACER) * gameSpeed * GAME_MULTIPLIER;
     canvas.height = gameCanvas.height;
     let context = canvas.getContext('2d');
     
@@ -64,12 +90,11 @@ function generateBlock(isFirst) {
     var platformList = [];
     for(let p of block.p) {
         var [xStart, yLevel, xEnd] = p;
-        var x = (spacer + xStart) * gameSpeed * GAME_MULTIPLIER;
-        var y = gameCanvas.height - 30 - yLevel * 100;
-        var width = Math.ceil((spacer + xEnd) * gameSpeed * GAME_MULTIPLIER);
+        var x = (BLOCK_SPACER + xStart) * gameSpeed * GAME_MULTIPLIER;
+        var y = gameCanvas.height - 40 - yLevel * 100;
+        var width = Math.ceil((BLOCK_SPACER + xEnd) * gameSpeed * GAME_MULTIPLIER);
         let platform = [x, y, width];
         generatePlatform(context, platform);
-        console.log('platform:', platform)
         platformList.push(platform);
     }
 
@@ -77,11 +102,10 @@ function generateBlock(isFirst) {
     var spikeList = [];
     for(let s of block.s) {
         var [xStart, yLevel, xEnd] = s;
-        var x = (spacer + xStart) * gameSpeed * GAME_MULTIPLIER;
-        var y = gameCanvas.height - 30 - yLevel * 100;
-        var width = Math.ceil((spacer + xEnd) * gameSpeed * GAME_MULTIPLIER);
+        var x = (BLOCK_SPACER + xStart) * gameSpeed * GAME_MULTIPLIER;
+        var y = gameCanvas.height - 40 - yLevel * 100;
+        var width = Math.ceil((BLOCK_SPACER + xEnd) * gameSpeed * GAME_MULTIPLIER);
         let spike = [x, y, width];
-        console.log('spike:', spike)
         generateSpike(context, spike);
         spikeList.push(spike);
     }
@@ -104,7 +128,7 @@ function drawBlocks() {
 
         // Draws diamonds
         for(let diamond of block.d) {
-            let diamondX = x + Math.floor(diamond[0] * block.speed);
+            let diamondX = x + Math.floor((BLOCK_SPACER + diamond[0]) * block.speed);
             let diamondY = gameCanvas.height - 30 - diamond[1] * 100;
             if(diamondX > 0 && diamondX < gameCanvas.width) {
                 drawDiamond(diamondX, diamondY);
@@ -125,7 +149,7 @@ function drawBlocks() {
             // Checks if player is collecting a diamond
             for(let index in block.d) {
                 var diamond = block.d[index];
-                let diamondX = x + Math.floor(diamond[0] * block.speed);
+                let diamondX = x + Math.floor((BLOCK_SPACER + diamond[0]) * block.speed);
                 let diamondY = gameCanvas.height - 30 - diamond[1] * 100;
                 var distance = Math.sqrt(Math.pow(diamondX - player.x, 2) + Math.pow(diamondY - player.y, 2));
                 if(distance < 30) {

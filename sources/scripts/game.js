@@ -4,14 +4,21 @@ gameCanvas.height = 400;
 var gameContext = gameCanvas.getContext('2d');
 var background =  document.getElementById('bg1');
 var middleground =  document.getElementById('bg2');
+var ui =  document.getElementById('ui');
+var diamondsCounter = document.getElementById('diamonds');
+var healthCounter = document.getElementById('health');
 
-var gameSpeed = 140;
+var gameSpeed = 100;
 var backgroundSpeed = 20;
 var middlegroundSpeed = 15;
 var gameDuration = 0;
 var startTime = +new Date();
+var collectedDiamonds = 0;
+var health = 100;
+var isGameEnded = false;
 
-// Just to try light update real time, while platform moving is not done yet
+const FALL_DAMAGE_VALUE = 20;
+
 var startScreen = document.getElementById('start');
 
 var drawBlockList = [];
@@ -43,11 +50,18 @@ function startGame() {
     startTime = +new Date();
     gameDuration = 0;
     
+    // Draws ui diamond
+    
     initBlocks();
 
     //initReaper();
     startScreen.style.display = 'none';
+    ui.style.display = 'block';
     loop();
+}
+
+function loseGame() {
+    isGameEnded = true;
 }
 
 function loadingLoop() {
@@ -74,15 +88,26 @@ function loop() {
         pauseTime = 0;
     }
 
-    //updateBackgroundSpeed();
+    updateBackgroundSpeed();
     gameContext.clearRect(0, 0, gameCanvas.width, gameCanvas.height);
 
+    // Moves player (jump, fall...)
     updatePlayerPosition();
-    drawBlocks();
 
+    // Displays blocks with plaforms
+    drawBlocks();
+    // Displays player's character
     drawPlayer();
+    // Displays light filter over character
     generateLightFilter();
-    requestAnimationFrame(loop);
+
+
+    // TODO: draw ui a single time, not at every frame    
+    drawDiamond(850, 15);
+    
+    if(!isGameEnded) {
+        requestAnimationFrame(loop);
+    }
 }
 
 function pauseGame() {

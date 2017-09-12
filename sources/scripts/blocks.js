@@ -2,17 +2,17 @@ const DRAWN_BLOCKS = 3;
 // List of available blocks. Each blocks is an array of platforms wdth [x, y, width, height]
 var availableBlockList = [
  /* {
-      w: 300,
+      w: 400,
       p: [[0, 200, 120, 30], [140, 200, 160, 30]]
   },*/
   {
-      w: 300,
-      p: [[0, 100, 140, 30], [160, 250, 140, 30]],
+      w: 2.5,
+      p: [[0, 1, 1], [1.5, 1, 2]],
       d: [[100, 250]]
   },
   {
-      w: 300,
-      p: [[0, 300, 300, 30]],
+      w: 5,
+      p: [[0, 0, 5]],
       d: [[100, 250], [150, 225], [200, 250]]
   },
 ];
@@ -30,17 +30,25 @@ function initBlocks() {
 function generateBlock() {
     let block = availableBlockList[Math.floor(Math.random() * availableBlockNumber)];
     let canvas = document.createElement('canvas');
-    canvas.width = block.w;
+    canvas.width = block.w * gameSpeed;
     canvas.height = gameCanvas.height;
     let context = canvas.getContext('2d');
-    for(let platform of block.p) {
+    var platformList = [];
+    for(let p of block.p) {
+        var [xDuration, yLevel, duration] = p;
+        var x = xDuration * gameSpeed;
+        var y = gameCanvas.height - 30 - yLevel * 100;
+        var width = Math.ceil(gameSpeed * duration);
+        let platform = [x, y, width];
+        console.log(platform);
         generatePlatform(context, platform);
+        platformList.push(platform);
     }
 
     return {
-        w: block.w,
+        w: block.w * gameSpeed,
         c: canvas,
-        p: block.p,
+        p: platformList,
         d: block.d.slice(0)
     };
 }
@@ -76,6 +84,7 @@ function drawBlocks() {
                 if(distance < 30) {
                     // Collect diamond: removes it from draw list
                     drawBlockList[blockNumber].d.splice(index, 1);
+                    diamondsCounter.innerText = ++collectedDiamonds;
                 }
             }
             
@@ -83,7 +92,7 @@ function drawBlocks() {
             var isPlayerOnPlatform = false;
             for(let platform of block.p) {
                 var [platformX, platformY, platformWidth, platformHeight] = platform;
-                if(player.x >= (platformX + x) && player.x <= (platformX + platformWidth + x)) {
+                if(player.x + 3 >= (platformX + x) && player.x  - 3 <= (platformX + platformWidth + x)) {
                     var playerBottomY = player.y + player.height / 2;
                     if(playerBottomY >= platformY && playerBottomY < platformY + 11) {
                         isPlayerOnPlatform = true;

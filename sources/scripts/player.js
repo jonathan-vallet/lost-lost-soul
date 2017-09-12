@@ -88,6 +88,14 @@ function stopFall() {
     //this.y = Math.floor(this.y / CELL_SIZE) * CELL_SIZE;
 }
 
+function hurtPlayer(value) {
+    health = Math.max(0, health - value);
+    healthCounter.innerText = health
+    if(health <= 0) {
+        loseGame();
+    }
+}
+
 /**
  * Updates player position on screen at every frame
  */
@@ -98,6 +106,7 @@ function updatePlayerPosition() {
     }
     
     if(player.y - player.height / 2 > gameCanvas.height) {
+        hurtPlayer(FALL_DAMAGE_VALUE);
         player.y = - player.height / 2;
     }
 }

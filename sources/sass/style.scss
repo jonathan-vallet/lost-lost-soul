@@ -25,7 +25,8 @@ body {
 #canvas,
 #bg1,
 #bg2,
-#start {
+#start,
+#ui {
     position: absolute;
     top: 0;
     left: 0;
@@ -88,4 +89,27 @@ body {
     color: black;
     cursor: pointer;
     text-transform: uppercase;
+}
+
+#ui {
+    display: none;
+    pointer-events: none;
+}
+
+#diamonds,
+#health {
+    position: absolute;
+    width: 40px;
+    line-height: 30px;
+    font-size: 20px;
+    color: #fff;
+}
+
+
+#diamonds {
+    right: 0;
+}
+
+#health {
+    left: 10px;
 }

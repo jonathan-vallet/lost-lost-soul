@@ -7,7 +7,8 @@
  * @param height int - height of the platform
  */
 function generatePlatform(context, platform) {
-    var [x, y, width, height] = platform;
+    var [x, y, width] = platform;
+    var height = 30;
     // Number of spikes on platform
     let splitNumber = Math.min(width / 10, 25 + 5 * gaussianRandom());
 

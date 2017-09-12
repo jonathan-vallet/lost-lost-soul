@@ -4,7 +4,16 @@
         display: inline-block;
         vertical-align: top;
         width: 50%;
+        margin-top: 20px;
         padding-left: 10px;
+        cursor: pointer;
+        &.disabled {
+            color: #555;
+            cursor: normal;
+            .shop-item-price {
+                color: #c44;
+            }
+        }
     }
 }
 
@@ -18,8 +27,15 @@
     width: calc(100% - 90px);
     display: inline-block;
     vertical-align: middle;
+    h2 {
+        font-size: 20px;
+    }
+}
+
+.shop-description {
+    font-size: 16px;
 }
 
 .shop-current-bonus {
-    font-size: 12px;
+    font-size: 14px;
 }

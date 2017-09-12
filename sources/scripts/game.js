@@ -8,6 +8,7 @@ var middleground =  document.getElementById('bg2');
 var startScreen = document.getElementById('start');
 var shopScreen = document.getElementById('shop');
 var ui = document.getElementById('ui');
+var collectedDiamondsTotalElement = document.getElementById('totalDiamondsCollected');
 
 const GAME_WIDTH = 900;
 const GAME_HEIGHT = 400;
@@ -16,12 +17,13 @@ gameCanvas.width = GAME_WIDTH;
 gameCanvas.height = GAME_HEIGHT;
 var gameContext = gameCanvas.getContext('2d');
 
+var savedData = {};
 var gameSpeed = 200;
 var backgroundSpeed = 20;
 var middlegroundSpeed = 15;
 var gameDuration = 0;
 var startTime = +new Date();
-var collectedDiamonds = 0;
+var collectedDiamonds = 142;
 var collectedDiamondsTotal = 0;
 var DEFAULT_HEALTH = 1;
 var health = DEFAULT_HEALTH;
@@ -29,21 +31,35 @@ var isGameEnded = false;
 
 const FALL_DAMAGE_VALUE = 20;
 const SPIKE_DAMAGE_VALUE = 1;
+const BONUS_BASE_COST = 50;
 
 var drawBlockList = [];
 var isGameInPause = false;
 var pauseTime = 0;
 
 var bonusList = {
-    light: 0,
-    fall: 0,
-    spikes: 0
+    light: {
+        currentLevel: 0,
+        maxLevel: 10,
+        bonusMultiplier: 10
+    },
+    fall: {
+        currentLevel: 0,
+        maxLevel: 10,
+        bonusMultiplier: 5
+    },
+    spikes: {
+        currentLevel: 0,
+        maxLevel: 10,
+        bonusMultiplier: 5
+    }
 };
 
 function showStartingScreen() {
     checkSize();
     initPlayer();
     initDiamond();
+    getSavedData();
 
     startTime = +new Date() - 20000;
     var loadingInterval = setInterval(function() {
@@ -63,6 +79,31 @@ function showStartingScreen() {
     [].forEach.call(document.querySelectorAll('#shop-item-list li'), function(el) {
         el.addEventListener('click', purchaseItem);
     });
+}
+
+function getSavedData() {
+    var savedDataText = getCookie('lostsoul');
+    if(savedDataText) {
+        savedData = JSON.parse(savedDataText);
+    } else {
+        savedData = {
+            d: 0,
+            b: {
+                light: 0,
+                fall: 0,
+                spikes: 0
+            }
+        }
+    }
+    
+    collectedDiamondsTotal = savedData.d || 0;
+    for(var bonus in bonusList) {
+        bonusList[bonus].currentLevel = savedData.b[bonus];
+    }
+}
+
+function saveData() {
+    setCookie('lostsoul', JSON.stringify(savedData));
 }
 
 function startGame() {
@@ -95,8 +136,7 @@ function loseGame() {
         collectedDiamondsTotal += collectedDiamonds;
         collectedDiamonds = 0;
         
-        // Displays shop screen
-        shopScreen.style.display = 'block';
+        displayShop();
     }, 500);
 }
 

@@ -97,7 +97,8 @@ function drawBackgroundItem(ctx, x, y, width, height, withStalactic) {
  * Increases background speed while game time goes on
  * @method updateBackgroundSpeed
  */
+/*
 function updateBackgroundSpeed() {
     background.style['animation-duration'] = Math.floor((backgroundSpeed - (gameDuration / 10000)) * 1000) / 1000 + 's';
     middleground.style['animation-duration'] = Math.floor((middlegroundSpeed - (gameDuration / 10000)) * 1000) / 1000 + 's';
-}
+}*/

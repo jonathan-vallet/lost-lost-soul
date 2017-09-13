@@ -138,6 +138,9 @@ body {
     background: #000;
     border: 2px solid #000;
     text-align: center;
+    p {
+        position: relative;
+    }
 }
 
 #healthBarProgress {
@@ -153,11 +156,6 @@ body {
 
 #diamonds {
     right: 10px;
-}
-
-#health {
-    left: 10px;
-    position: relative;
 }
 
 .diamond {

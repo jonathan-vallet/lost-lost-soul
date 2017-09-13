@@ -12,7 +12,8 @@ function getSavedData() {
                 light: 0,
                 fall: 0,
                 spikes: 0
-            }
+            },
+            s: 0
         }
     }
     

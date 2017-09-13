@@ -1,8 +1,8 @@
 {
-  "name": "js13k2017",
+  "name": "js13k2017 - lost soul",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "index.html",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -10,7 +10,7 @@
     "type": "git",
     "url": "git+https://github.com/jonathan-vallet/lost-lost-soul.git"
   },
-  "author": "",
+  "author": "Jonathan Vallet - joe.vallet@gmail.com",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/jonathan-vallet/lost-lost-soul/issues"

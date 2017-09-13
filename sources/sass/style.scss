@@ -99,7 +99,7 @@ body {
 }
 
 #rules {
-    margin: 0 0 60px;  
+    margin: 0 0 40px;  
 }
 
 #start-button,
@@ -107,14 +107,15 @@ body {
 #close-popin-button {
     display: inline-block;
     border: 3px solid black;
-    background: rgba(255,255,180,0.7);
+    background: rgba(126,255,91,0.7);
     font-size: 26px;
-    line-height: 50px;
+    line-height: 46px;
     height: 50px;
     padding: 0 20px;
     color: black;
     cursor: pointer;
     text-transform: uppercase;
+    border-radius: 4px;
 }
 
 #ui {
@@ -123,19 +124,39 @@ body {
 }
 
 #diamonds,
-#health {
+#healthBar {
     position: absolute;
     line-height: 30px;
     font-size: 20px;
     color: #fff;
 }
 
-#diamonds {
-    right: 10px;
+#healthBar {
+    top: 5px;
+    left: 5px;
+    width: 250px;
+    background: #000;
+    border: 2px solid #000;
+    text-align: center;
+    p {
+        position: relative;
+    }
 }
 
-#health {
-    left: 10px;
+#healthBarProgress {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background: #ed6a5a;
+    transition: width 0.2s ease;
+}
+
+#diamonds {
+    right: 50px;
+    top: 5px;
 }
 
 .diamond {
@@ -154,6 +175,20 @@ body {
     }
     .shop-item-list {
         margin: 30px 0;
+    }
+}
+
+#music-toggle {
+    position: absolute;
+    right: 0;
+    top: 0;
+    color: white;
+    font-size: 20px;
+    padding: 10px;
+    cursor: pointer;
+    &.muted {
+        text-decoration: line-through;
+        opacity: 0.5;
     }
 }
 

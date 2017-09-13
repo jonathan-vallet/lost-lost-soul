@@ -13,7 +13,8 @@
             <h1 class="title">Lost soul</h1>
             <p id="controls">Space / Touch screen : Jump</p>
             <p id="rules">Survive as long as you can in this infinite cave<br />
-                Collect diamonds to buy improvements between each play
+                Collect diamonds to buy improvements between each play<br />
+                <br />Best survive time: <span id="start-best-time">0</span>s
             </p>
             <p id="start-button">Start</p>
         </div>
@@ -52,6 +53,7 @@
                     </div>
                 </li>
             </ul>
+            <p>Survive time: <span id="shop-current-score"></span>s - Best: <span id="shop-best-score"></span>s</p>
             <p id="restart-button">Restart</p>
             <p id="get-more-button">get more&nbsp;<span class="diamond"></span></p>
         </div>
@@ -81,9 +83,13 @@
             <p id="close-popin-button">Close</p>
         </div>
         <div id="ui">
-            <p id="health">100</p>
+            <div id="healthBar">
+                <div id="healthBarProgress"></div>
+                <p><span id="health">100</span>%</p>    
+            </div>
             <p id="diamonds" class="diamond">0</p>
         </div>
+        <p id="music-toggle">&#x266b;</p>
     </div>
     <script src="scripts/game.js" inline></script>
 </body>

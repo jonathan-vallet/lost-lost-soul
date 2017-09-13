@@ -1,5 +1,5 @@
-const DRAWN_BLOCKS = 3; // Number of blocks in memory loop
-const BLOCK_SPACER = 0.5; // Adds a little jump between blocks
+var DRAWN_BLOCKS = 3; // Number of blocks in memory loop
+var BLOCK_SPACER = 0.5; // Adds a little jump between blocks
 
 var firstBlock = {
   //  p: [[0, 0, 10]],
@@ -59,15 +59,15 @@ var availableBlockNumber = availableBlockList.length;
 
 function initBlocks() {
     drawBlockList = [];
-    for(let blockNumber = 0; blockNumber < DRAWN_BLOCKS; ++blockNumber) {
-        let block = generateBlock(blockNumber === 0);
+    for(var blockNumber = 0; blockNumber < DRAWN_BLOCKS; ++blockNumber) {
+        var block = generateBlock(blockNumber === 0);
         block.x = blockNumber === 0 ? 0 : (drawBlockList[blockNumber - 1].x + drawBlockList[blockNumber - 1].w);
         drawBlockList.push(block);
     }
 }
 
 function generateBlock(isFirst) {
-    let block;
+    var block;
     if(isFirst) {
         block = firstBlock;
     } else {
@@ -76,36 +76,36 @@ function generateBlock(isFirst) {
 
     // First gets position of the last platform to know block width
     var maxDuration = 0;
-    for(let p of block.p) {
+    for(var p of block.p) {
         var [xStart, yLevel, xEnd] = p;
         maxDuration = Math.max(maxDuration, xEnd);
     }
     
-    let canvas = document.createElement('canvas');
+    var canvas = document.createElement('canvas');
     canvas.width = (maxDuration + BLOCK_SPACER) * gameSpeed * GAME_MULTIPLIER;
     canvas.height = gameCanvas.height;
-    let context = canvas.getContext('2d');
+    var context = canvas.getContext('2d');
     
     // Adds platforms
     var platformList = [];
-    for(let p of block.p) {
+    for(var p of block.p) {
         var [xStart, yLevel, xEnd] = p;
         var x = (BLOCK_SPACER + xStart) * gameSpeed * GAME_MULTIPLIER;
         var y = gameCanvas.height - 40 - yLevel * 100;
         var width = Math.ceil((BLOCK_SPACER + xEnd) * gameSpeed * GAME_MULTIPLIER);
-        let platform = [x, y, width];
+        var platform = [x, y, width];
         generatePlatform(context, platform);
         platformList.push(platform);
     }
 
     // Adds spikes
     var spikeList = [];
-    for(let s of block.s) {
+    for(var s of block.s) {
         var [xStart, yLevel, xEnd] = s;
         var x = (BLOCK_SPACER + xStart) * gameSpeed * GAME_MULTIPLIER;
         var y = gameCanvas.height - 40 - yLevel * 100;
         var width = Math.ceil((BLOCK_SPACER + xEnd) * gameSpeed * GAME_MULTIPLIER);
-        let spike = [x, y, width];
+        var spike = [x, y, width];
         generateSpike(context, spike);
         spikeList.push(spike);
     }
@@ -121,15 +121,15 @@ function generateBlock(isFirst) {
 }
 
 function drawBlocks() {
-    for(let blockNumber = 0; blockNumber < DRAWN_BLOCKS; ++blockNumber) {
-        let block = drawBlockList[blockNumber];
-        let x = Math.floor(block.x - gameDuration * gameSpeed / 1000);
+    for(var blockNumber = 0; blockNumber < DRAWN_BLOCKS; ++blockNumber) {
+        var block = drawBlockList[blockNumber];
+        var x = Math.floor(block.x - gameDuration * gameSpeed / 1000);
         gameContext.drawImage(block.c, x, 0);
 
         // Draws diamonds
-        for(let diamond of block.d) {
-            let diamondX = x + Math.floor((BLOCK_SPACER + diamond[0]) * block.speed);
-            let diamondY = gameCanvas.height - 30 - diamond[1] * 100;
+        for(var diamond of block.d) {
+            var diamondX = x + Math.floor((BLOCK_SPACER + diamond[0]) * block.speed);
+            var diamondY = gameCanvas.height - 30 - diamond[1] * 100;
             if(diamondX > 0 && diamondX < gameCanvas.width) {
                 drawDiamond(diamondX, diamondY);
             }
@@ -147,10 +147,10 @@ function drawBlocks() {
         // Collision checks is done here to avoid another loop on blocks
         if(player.x >= x && player.x < (x + block.w)) {
             // Checks if player is collecting a diamond
-            for(let index in block.d) {
+            for(var index in block.d) {
                 var diamond = block.d[index];
-                let diamondX = x + Math.floor((BLOCK_SPACER + diamond[0]) * block.speed);
-                let diamondY = gameCanvas.height - 30 - diamond[1] * 100;
+                var diamondX = x + Math.floor((BLOCK_SPACER + diamond[0]) * block.speed);
+                var diamondY = gameCanvas.height - 30 - diamond[1] * 100;
                 var distance = Math.sqrt(Math.pow(diamondX - player.x, 2) + Math.pow(diamondY - player.y, 2));
                 if(distance < 30) {
                     // Collect diamond: removes it from draw list
@@ -161,7 +161,7 @@ function drawBlocks() {
             
             // Checks block platfoms to know if player is on one or not
             var isPlayerOnPlatform = false;
-            for(let platform of block.p) {
+            for(var platform of block.p) {
                 var [platformX, platformY, platformXEnd] = platform;
                 if(player.x + 3 >= (platformX + x) && player.x  - 3 <= (platformXEnd + x)) {
                     var playerBottomY = player.y + player.height / 2;
@@ -173,12 +173,12 @@ function drawBlocks() {
                 }
             }
             
-            for(let spike of block.s) {
+            for(var spike of block.s) {
                 var [spikeX, spikeY, spikeXEnd] = spike;
                 if(player.x + 3 >= (spikeX + x) && player.x  - 3 <= (spikeXEnd + x)) {
                     var playerBottomY = player.y + player.height / 2;
                     if(playerBottomY >= spikeY && playerBottomY < spikeY + 11) {
-                        hurtPlayer(SPIKE_DAMAGE_VALUE);
+                        hurtPlayer(SPIKE_DAMAGE_VALUE * (1 - bonusList.spikes.currentLevel * 0.05));
                         break;
                     }
                 }

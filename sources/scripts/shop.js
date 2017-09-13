@@ -1,5 +1,6 @@
 function displayShop() {
     // Displays shop screen
+    stopMusic();
     collectedDiamondsTotalElement.innerText = collectedDiamondsTotal;
     savedData.d = collectedDiamondsTotal;
     saveData();

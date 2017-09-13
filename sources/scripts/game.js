@@ -26,7 +26,7 @@ var backgroundSpeed = 20;
 var middlegroundSpeed = 15;
 var gameDuration = 0;
 var startTime = +new Date();
-var collectedDiamonds = 142;
+var collectedDiamonds = 0;
 var collectedDiamondsTotal = 0;
 var DEFAULT_HEALTH = 100;
 var health = DEFAULT_HEALTH;
@@ -35,7 +35,7 @@ var isGameStarted = false;
 
 var FALL_DAMAGE_VALUE = 20;
 var SPIKE_DAMAGE_VALUE = 1;
-var BONUS_BASE_COST = 50;
+var BONUS_BASE_COST = 30;
 
 var drawBlockList = [];
 var isGameInPause = false;
@@ -116,7 +116,7 @@ function startGame() {
     healthCounter.innerText = Math.floor(health);
     healthBarProgress.style.width = health + '%';
     
-    // Draws ui diamond
+    diamondsCounter.innerText = '0';
 
     initBlocks();
 

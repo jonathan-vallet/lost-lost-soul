@@ -82,4 +82,9 @@ musicToggleButton.addEventListener("click", function () {
         classList.add("muted");
         stopMusic();
     }
-})
+});
+
+document.addEventListener( "contextmenu", function(e) {
+    e.preventDefault();
+    return false;
+});

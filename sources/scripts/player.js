@@ -1,13 +1,13 @@
 var player = {};
 var playerHurtTimeout;
-//const GRAVITY = 0.3; // Gravity, to make jump go back to the ground
-//const JUMP_IMPULSE = 9; // Jump impulsion when starting to jump. Decreases over tim due to GRAVITY
+//var GRAVITY = 0.3; // Gravity, to make jump go back to the ground
+//var JUMP_IMPULSE = 9; // Jump impulsion when starting to jump. Decreases over tim due to GRAVITY
 
-const GRAVITY = 0.2; // Gravity, to make jump go back to the ground
-const JUMP_IMPULSE = 7.4; // Jump impulsion when starting to jump. Decreases over tim due to GRAVITY
-const GAME_MULTIPLIER = 0.7; // To change space between blocks for jumps, depending of gravity/impulse values
-const PLAYER_START_X = 200;
-const PLAYER_START_Y = 182;
+var GRAVITY = 0.2; // Gravity, to make jump go back to the ground
+var JUMP_IMPULSE = 7.4; // Jump impulsion when starting to jump. Decreases over tim due to GRAVITY
+var GAME_MULTIPLIER = 0.7; // To change space between blocks for jumps, depending of gravity/impulse values
+var PLAYER_START_X = 200;
+var PLAYER_START_Y = 182;
 
 var isPlayerImageLoaded = false;
 /**
@@ -19,7 +19,7 @@ function initPlayer() {
     playerCanvas.width = player.width;
     playerCanvas.height = player.height;
 
-    let playerImage = new Image();
+    var playerImage = new Image();
     playerImage.src = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACoAAAAkAgMAAACCp0C4AAAADFBMVEUAAAD///////8AAAA4fh26AAAAAnRSTlMA32D/An0AAACJSURBVBjTrdC9DYQwDIbhyHRMckp1y+SKq648MUWWQELQICH+vASMxAYQ7BAHQclbPZL1NVZ7iGgVB85/79Q580bXWIuRDeSBrMmdFePFJB6Dd/GEpztzpRXj7+xU/IqMOvLRVAe38xzcRe7XJbhS7+BGPO6GL08TZ38YyDoy5MaYj2Lzl5N12QDN7Ll+6NbFBQAAAABJRU5ErkJggg==';
     playerImage.addEventListener('load', function() {
         isPlayerImageLoaded = true;
@@ -61,13 +61,13 @@ function drawPlayer() {
     }
     
     // Adds eyes blinking
-    let eyeHeight = !player.isHurt && Math.floor(gameDuration / 100) % 50 !== 4 ? 5 : 1;
+    var eyeHeight = !player.isHurt && Math.floor(gameDuration / 100) % 50 !== 4 ? 5 : 1;
     playerContext.fillStyle= '#000';
     playerContext.fillRect(player.width / 2 - 2, player.height / 2 - 3, 3, - eyeHeight);
     playerContext.fillRect(player.width / 2 + 9, player.height / 2 - 3, 3, - eyeHeight);
 
     // Adds lantern light
-    let ligthBritghness = Math.max(25, 100 - (gameDuration / 1000 * (lightRadiusDecreaseSpeed * 100 / INITIAL_LIGHT_RADIUS)));
+    var ligthBritghness = Math.max(25, 100 - (gameDuration / 1000 * (lightRadiusDecreaseSpeed * 100 / INITIAL_LIGHT_RADIUS)));
     playerContext.fillStyle= 'rgba(255, 255, 168, ' + (ligthBritghness / 100) + ')';
     playerContext.fillRect(player.width / 2 + 15, player.height / 2 +10, 5, 7);
  

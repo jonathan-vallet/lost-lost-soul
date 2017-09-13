@@ -13,16 +13,16 @@
 function generateBackground(background, width, height, heightPercent, offset, loop, color, withStalactite) {
     // Sets background image finale size
     background.width = (width + offset * 2) * loop;
-    let canvas = document.createElement('canvas');
+    var canvas = document.createElement('canvas');
     canvas.width = background.width;
     canvas.height = height;
 
-    let context = canvas.getContext('2d');
+    var context = canvas.getContext('2d');
     context.fillStyle = color;
     context.fillRect(0, 0, canvas.width, canvas.height);
 
     // Generates every background cave
-    for(let index = 0; index < loop; ++index) {
+    for(var index = 0; index < loop; ++index) {
         drawBackgroundItem(context, offset + index * (width + offset * 2), canvas.height / 2, width, canvas.height * heightPercent, withStalactite);
     }
     background.style.backgroundImage = 'url(' + canvas.toDataURL() + ')';
@@ -40,18 +40,18 @@ function generateBackground(background, width, height, heightPercent, offset, lo
 function drawBackgroundItem(ctx, x, y, width, height, withStalactic) {
     ctx.globalCompositeOperation = 'destination-out';
     ctx.beginPath();
-    let startX = x;
-    let currentX = 0;
-    let currentY = y;
-    let splitNumber = withStalactic ? 40 : 25;
-    let centerOffset = (gaussianRandom() + 1) * 0.2 * height - 0.1 * height;
-    let spikeHeightCoef = 0.25;
+    var startX = x;
+    var currentX = 0;
+    var currentY = y;
+    var splitNumber = withStalactic ? 40 : 25;
+    var centerOffset = (gaussianRandom() + 1) * 0.2 * height - 0.1 * height;
+    var spikeHeightCoef = 0.25;
 
-    for(let index = -1; index <= 1; index += 2) {
-        let iteration = 0;
+    for(var index = -1; index <= 1; index += 2) {
+        var iteration = 0;
         currentX = 0;
         currentY = y;
-        let step = 1;
+        var step = 1;
         ctx.moveTo(startX, y + centerOffset);
         while(currentX < width - width / splitNumber) {
             currentX = currentX + (gaussianRandom() + 1) * width / splitNumber;
@@ -59,10 +59,10 @@ function drawBackgroundItem(ctx, x, y, width, height, withStalactic) {
                 break;
             }
 
-            let pointX = currentX;
+            var pointX = currentX;
             if(withStalactic) {
                 spikeHeightCoef = 0.15;
-                let progress = iteration/splitNumber;
+                var progress = iteration/splitNumber;
                 if(progress < 0.33) {
                     pointX = 0.8 * currentX + 0.05 * width;
                     spikeHeightCoef = 0.7;

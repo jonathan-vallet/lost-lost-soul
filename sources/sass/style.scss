@@ -155,7 +155,8 @@ body {
 }
 
 #diamonds {
-    right: 10px;
+    right: 50px;
+    top: 5px;
 }
 
 .diamond {
@@ -174,6 +175,20 @@ body {
     }
     .shop-item-list {
         margin: 30px 0;
+    }
+}
+
+#music-toggle {
+    position: absolute;
+    right: 0;
+    top: 0;
+    color: white;
+    font-size: 20px;
+    padding: 10px;
+    cursor: pointer;
+    &.muted {
+        text-decoration: line-through;
+        opacity: 0.5;
     }
 }
 

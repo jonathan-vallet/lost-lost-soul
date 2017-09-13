@@ -71,3 +71,15 @@ document.getElementById('close-popin-button').addEventListener('click', function
 [].forEach.call(document.querySelectorAll('#get-more-popin .shop-item-list li'), function(el) {
     el.addEventListener('click', getFreeDiamonds);
 });
+
+var musicToggleButton = document.getElementById('music-toggle');
+musicToggleButton.addEventListener("click", function () {
+    var classList = musicToggleButton.classList;
+    if (classList.contains("muted")) {
+        playMusic();
+        classList.remove("muted")
+    } else {
+        classList.add("muted");
+        stopMusic();
+    }
+})

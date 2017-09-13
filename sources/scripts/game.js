@@ -11,6 +11,7 @@ var ui = document.getElementById('ui');
 var collectedDiamondsTotalElement = document.getElementById('totalDiamondsCollected');
 var getMorePopin = document.getElementById('get-more-popin');
 var healthBarProgress = document.getElementById('healthBarProgress');
+var musicToggleButton = document.getElementById('music-toggle');
 
 const GAME_WIDTH = 900;
 const GAME_HEIGHT = 400;
@@ -58,6 +59,25 @@ var bonusList = {
     }
 };
 
+var audio = document.createElement("audio");
+var musicplayer = new CPlayer();
+musicplayer.init(song);
+
+while (musicplayer.generate() < 1) { }
+var wave = musicplayer.createWave();
+
+audio.src = URL.createObjectURL(new Blob([wave], {type: "audio/wav"}));
+
+function playMusic() {
+    audio.play();
+    audio.loop = true;
+}
+
+function stopMusic() {
+    audio.pause();
+}
+playMusic();
+
 function showStartingScreen() {
     checkSize();
     initPlayer();
@@ -104,6 +124,10 @@ function startGame() {
     startScreen.style.display = 'none';
     shopScreen.style.display = 'none';
     ui.style.display = 'block';
+    
+    if(!musicToggleButton.classList.contains('muted')) {
+        playMusic();
+    }
     loop();
 }
 

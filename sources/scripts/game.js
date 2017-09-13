@@ -10,6 +10,7 @@ var shopScreen = document.getElementById('shop');
 var ui = document.getElementById('ui');
 var collectedDiamondsTotalElement = document.getElementById('totalDiamondsCollected');
 var getMorePopin = document.getElementById('get-more-popin');
+var healthBarProgress = document.getElementById('healthBarProgress');
 
 const GAME_WIDTH = 900;
 const GAME_HEIGHT = 400;
@@ -92,6 +93,8 @@ function startGame() {
     startTime = +new Date();
     gameDuration = 0;
     health = DEFAULT_HEALTH;
+    healthCounter.innerText = Math.floor(health);
+    healthBarProgress.style.width = health + '%';
     
     // Draws ui diamond
 

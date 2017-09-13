@@ -115,9 +115,9 @@ function stopFall() {
 }
 
 function hurtPlayer(value) {
-    console.log('hurtPlayer', value);
     health = Math.max(0, health - value);
     healthCounter.innerText = Math.floor(health);
+    healthBarProgress.style.width = health + '%';
     if(health <= 0) {
         loseGame();
     }
